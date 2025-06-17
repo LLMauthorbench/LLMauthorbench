@@ -42,10 +42,6 @@ The LLM-AuthorBench dataset includes 32,000 compilable C programs. You can downl
 
  ### 3. Train and Evaluate BERT for LLM Authorship Attribution
 
- 
- This Google Colab script verifies that all C code entries in the dataset are compilable by using `gcc -c`. It checks each code sample for syntax errors, type errors, and translation unit correctness, but does not perform linking. In other words, the script assesses the compilability of the dataset's C code, ensuring each file is valid C source code, even though external references may remain unresolved.
- To ensure that all generated C code samples are valid and compilable as C source files, regardless of external references.
-
 
 - **Description:** This Google Colab script provides an end-to-end pipeline for training a BERT model on the LLM-AuthorBench dataset for authorship attribution tasks. It covers data preprocessing, model training, and evaluation, enabling users to assess the ability of BERT to identify the authorship of generated texts.
 - **Purpose:** To benchmark BERT’s performance on LLM authorship attribution, facilitating research into identifying the origins of AI-generated content.
