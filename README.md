@@ -35,7 +35,7 @@ Key results:
 
 - **Description:** This Google Colab script verifies that all C code entries in the dataset are compilable by using `gcc -c`. It checks each code sample for syntax errors, type errors, and translation unit correctness, but does not perform linking. In other words, the script assesses the compilability of the dataset's C code, ensuring each file is valid C source code, even though external references may remain unresolved.
 - **Purpose:** To ensure that all generated C code samples are valid and compilable as C source files, regardless of external references.
-- **Script:** [2_CHECK_COMPILABILITY_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/scripts/2_CHECK_COMPILABILITY_google_colab.ipynb)
+- **Script:** [2_CHECK_COMPILABILITY_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/2_CHECK_COMPILABILITY_google_colab.ipynb)
 
 The LLM-AuthorBench dataset includes 32,000 compilable C programs. You can download the dataset from the following link:
 [⬇️ Download LLM-AuthorBench.json.zip](https://github.com/LLMauthorbench/LLMauthorbench/raw/main/LLM-AuthorBench.json.zip)
