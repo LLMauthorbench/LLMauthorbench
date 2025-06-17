@@ -52,24 +52,24 @@ We are releasing all Google Colab code to **support open science and research**.
 
 -   **Description:** This Google Colab script uses openrouter.ai to generate C code samples from various large language models (LLMs).
 -  **Purpose:** To create a diverse dataset of automatically generated C code for further evaluation and benchmarking.
-- **Script:** [1_DATASET_CREATOR_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/1_DATASET_CREATOR_google_colab.ipynb)
+- **Script:** ⬇️  [1_DATASET_CREATOR_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/1_DATASET_CREATOR_google_colab.ipynb)
  
  
  ### 4.2. Validate the compilability of the generated C code
 
 - **Description:** This Google Colab script verifies that all C code entries in the dataset are compilable by using `gcc -c`. It checks each code sample for syntax errors, type errors, and translation unit correctness, but does not perform linking. In other words, the script assesses the compilability of the dataset's C code, ensuring each file is valid C source code, even though external references may remain unresolved.
 - **Purpose:** To ensure that all generated C code samples are valid and compilable as C source files, regardless of external references.
-- **Script:** [2_CHECK_COMPILABILITY_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/2_CHECK_COMPILABILITY_google_colab.ipynb)
+- **Script:** ⬇️  [2_CHECK_COMPILABILITY_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/2_CHECK_COMPILABILITY_google_colab.ipynb)
 
 The LLM-AuthorBench dataset includes 32,000 compilable C programs. You can download the dataset from the following link:
-[⬇️ Download LLM-AuthorBench.json.zip](https://github.com/LLMauthorbench/LLMauthorbench/raw/main/LLM-AuthorBench.json.zip)
+[Download LLM-AuthorBench.json.zip](https://github.com/LLMauthorbench/LLMauthorbench/raw/main/LLM-AuthorBench.json.zip)
 
  ### 4.3. Train and Evaluate BERT for LLM Authorship Attribution
 
 
 - **Description:** This Google Colab script provides an end-to-end pipeline for training a BERT model on the LLM-AuthorBench dataset for authorship attribution tasks. It covers data preprocessing, model training, and evaluation, enabling users to assess the ability of BERT to identify the authorship of generated texts.
 - **Purpose:** To benchmark BERT’s performance on LLM authorship attribution, facilitating research into identifying the origins of AI-generated content.
-- **Script:**  [3_BERT_training-5-class_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/3_BERT_training-5-class_google_colab.ipynb)
+- **Script:** ⬇️  [3_BERT_training-5-class_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/3_BERT_training-5-class_google_colab.ipynb)
 
 
 
@@ -78,7 +78,7 @@ The LLM-AuthorBench dataset includes 32,000 compilable C programs. You can downl
  
 - **Description:** This Google Colab script demonstrates how to train and evaluate traditional machine learning models—including Logistic Regression, Random Forest, and Support Vector Machines—on the LLM-AuthorBench dataset for authorship attribution. The script covers feature extraction, model training, and performance evaluation, offering a baseline comparison to deep learning approaches.
 - **Purpose:**  To establish traditional machine learning baselines for LLM authorship attribution and compare their effectiveness with transformer-based models like BERT.
-- **Script:** [4_TRAIN_Machine_learning_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/4_TRAIN_Machine_learning_google_colab.ipynb)
+- **Script:** ⬇️  [4_TRAIN_Machine_learning_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/4_TRAIN_Machine_learning_google_colab.ipynb)
 
 
 ## 5. Results
