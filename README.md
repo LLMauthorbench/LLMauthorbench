@@ -78,7 +78,7 @@ The LLM-AuthorBench dataset includes 32,000 compilable C programs. You can downl
  
 - **Description:** This Google Colab script demonstrates how to train and evaluate traditional machine learning models—including Logistic Regression, Random Forest, and Support Vector Machines—on the LLM-AuthorBench dataset for authorship attribution. The script covers feature extraction, model training, and performance evaluation, offering a baseline comparison to deep learning approaches.
 - **Purpose:**  To establish traditional machine learning baselines for LLM authorship attribution and compare their effectiveness with transformer-based models like BERT.
-- **Script:** [4_TRAIN_Machine_learning_google_colab.ipynbb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/4_TRAIN_Machine_learning_google_colab.ipynb)
+- **Script:** [4_TRAIN_Machine_learning_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/4_TRAIN_Machine_learning_google_colab.ipynb)
 
 Results for 5-Class Authorship Attribution (20.000 samples) Using Machine Learning. In this approach, TF-IDF is applied to the entire C code. Additional features can be incorporated to further improve the results. 
 
