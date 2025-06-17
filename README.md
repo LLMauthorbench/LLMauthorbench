@@ -28,7 +28,7 @@ Key results:
 
 -   **Description:** This Google Colab script uses openrouter.ai to generate C code samples from various large language models (LLMs).
 -  **Purpose:** To create a diverse dataset of automatically generated C code for further evaluation and benchmarking.
-- **Script:** [1_DATASET_CREATOR_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/scripts/1_DATASET_CREATOR_google_colab.ipynb)
+- **Script:** [1_DATASET_CREATOR_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/raw/main/scripts/1_DATASET_CREATOR_google_colab.ipynb)
  
  
  ### 2. Validate the compilability of the generated C code
