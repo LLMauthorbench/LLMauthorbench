@@ -69,7 +69,7 @@ The LLM-AuthorBench dataset includes 32,000 compilable C programs. You can downl
 
 - **Description:** This Google Colab script provides an end-to-end pipeline for training a BERT model on the LLM-AuthorBench dataset for authorship attribution tasks. It covers data preprocessing, model training, and evaluation, enabling users to assess the ability of BERT to identify the authorship of generated texts.
 - **Purpose:** To benchmark BERT’s performance on LLM authorship attribution, facilitating research into identifying the origins of AI-generated content.
-- **Script:**:  [3_BERT_training-5-class_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/3_BERT_training-5-class_google_colab.ipynb)
+- **Script:**  [3_BERT_training-5-class_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/3_BERT_training-5-class_google_colab.ipynb)
 
 
 
