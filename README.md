@@ -80,6 +80,73 @@ The LLM-AuthorBench dataset includes 32,000 compilable C programs. You can downl
 - **Purpose:**  To establish traditional machine learning baselines for LLM authorship attribution and compare their effectiveness with transformer-based models like BERT.
 - **Script:** [4_TRAIN_Machine_learning_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/4_TRAIN_Machine_learning_google_colab.ipynb)
 
+
+## 5. Results
+
+### 5.1 Binary Classification (GPT-4o vs GPT-4.1)
+
+The results for binary classification between GPT-4.1 and GPT-4o (same family) for authorship attribution are presented below, ordered by accuracy. The "Comment" column indicates whether comments were removed during training. This highlights that comments can contain valuable information, as removing them consistently decreases performance by approximately 2–3% in every case.
+
+
+| Model Name    | Type | Acc (%) | Prec (%) | Time   | Comments | Key Parameters          |
+| ------------- | ---- | ------- | -------- | ------ | ---- | ----------------------- |
+| DeBERTa-V3    | LLM  | 97.00   | 97.00    | 151:46 | ✔️   | Layers: 12, Token: 2048 |
+| QWEN2-1.5B    | LLM  | 96.88   | 96.87    | 179:54 | ✔️   | Layers: 32, Token: 2048 |
+| DeBERTa-V3    | LLM  | 96.75   | 96.81    | 45:21  | ✔️   | Layers: 12, Token: 1024 |
+| DeBERTa-V3    | LLM  | 96.31   | 96.32    | 27:26  | ✔️   | Layers: 12, Token: 512  |
+| Longformer    | LLM  | 96.19   | 96.19    | 117:42 | ✔️   | Layers: 12, Token: 2048 |
+| ModernBERT\_B | LLM  | 95.94   | 95.95    | 36:04  | ✔️   | Layers: 12, Token: 512  |
+| RoBERTa\_L    | LLM  | 95.68   | 95.76    | 87:35  | ✔️   | Layers: 24, Token: 512  |
+| codeBERT      | LLM  | 95.31   | 95.43    | 30:21  | ✔️   | Layers: 12, Token: 512  |
+| RoBERTa\_B    | LLM  | 94.81   | 94.87    | 30:21  | ✔️   | Layers: 12, Token: 512  |
+| BERT\_B       | LLM  | 94.75   | 94.81    | 31:05  | ✔️   | Layers: 12, Token: 512  |
+| DistilBERT\_B | LLM  | 93.81   | 93.82    | 19:04  | ✔️   | Layers: 6, Token: 512   |
+| codeBERT      | LLM  | 93.68   | 93.75    | 30:21  | ❌    | Layers: 12, Token: 512  |
+| XGBoost       | ML   | 92.20   | 92.20    | 5.21   | ✔️   | Estimators: 400         |
+| RoBERTa\_B    | LLM  | 92.81   | 92.84    | 30:33  | ❌    | Layers: 12, Token: 512  |
+| Random Forest | ML   | 90.40   | 90.40    | 12.33  | ✔️   | Estimators: 400         |
+| BERT\_B       | LLM  | 91.62   | 91.69    | 30:24  | ❌    | Layers: 12, Token: 512  |
+| DistilBERT\_B | LLM  | 91.00   | 91.09    | 18:19  | ❌    | Layers: 6, Token: 512   |
+| XGBoost       | ML   | 89.70   | 89.70    | 5.98   | ❌    | Estimators: 400         |
+| SVM (Kernel)  | ML   | 88.90   | 88.90    | 4.32   | ✔️   | Kernel: RBF             |
+| Random Forest | ML   | 88.20   | 88.30    | 11.49  | ❌    | Estimators: 400         |
+| Bagging (DT)  | ML   | 84.90   | 84.90    | 6.41   | ✔️   | Estimators: 10          |
+| Bagging (DT)  | ML   | 84.70   | 84.80    | 5.93   | ❌    | Estimators: 10          |
+| SVM (Linear)  | ML   | 86.40   | 86.40    | 0.09   | ✔️   | Max\_iter=2000          |
+| SVM (Kernel)  | ML   | 84.20   | 84.30    | 4.98   | ❌    | Kernel: RBF             |
+| KNN           | ML   | 83.50   | 83.50    | 0.00   | ✔️   | Neighbors: 5            |
+| SVM (Linear)  | ML   | 80.60   | 80.60    | 0.10   | ❌    | Kernel: Linear          |
+| KNN           | ML   | 80.30   | 80.40    | 0.00   | ❌    | Neighbors: 5            |
+| Decision Tree | ML   | 77.10   | 77.10    | 0.39   | ✔️   | Max Depth: 8            |
+| Decision Tree | ML   | 74.20   | 74.30    | 0.33   | ❌    | Max Depth: 8            |
+
+### 5.1 Multi-class Classification (Gemini-2.5 Flash, Claude-3.5 Haiku, GPT-4.1, Llama 3.1, DeepSeek-V3)
+
+The results for 5-class authorship attribution are presented below, ordered by accuracy. 
+
+| Model Name    | Type | Acc (%) | Prec (%) | Time   | Comment | Key Parameters            |
+| ------------- | ---- | ------- | -------- | ------ | --- | ------------------------- |
+| Longformer    | LLM  | 95.00   | 95.01    | 604:42 | ✔️  | Layers: 12, Token: 2048   |
+| DeBERTa-V3    | LLM  | 94.25   | 94.32    | 107:02 | ✔️  | Layers: 12, Token: 512    |
+| DeBERTa-V3    | LLM  | 94.15   | 94.28    | 733:32 | ✔️  | Layers: 12, Token: 2048   |
+| DeBERTa-V3    | LLM  | 94.02   | 94.13    | 244:32 | ✔️  | Layers: 12, Token: 1024   |
+| codeBERT      | LLM  | 93.52   | 93.64    | 80:40  | ✔️  | Layers: 12, Token: 512    |
+| RoBERTa\_B    | LLM  | 93.38   | 93.43    | 80:34  | ✔️  | Layers: 12, Token: 512    |
+| DistilBERT\_B | LLM  | 93.02   | 93.06    | 54:58  | ✔️  | Layers: 6, Token: 512     |
+| BERT\_B       | LLM  | 92.65   | 92.71    | 85:05  | ✔️  | Layers: 12, Token: 2048   |
+| QWEN2-1.5B    | LLM  | 91.87   | 91.86    | 454:43 | ✔️  | Layers: 32, Token: 2048   |
+| XGBoost       | ML   | 90.80   | 90.80    | 00:57  | ✔️  | Estimators: 400, Depth: 9 |
+| Random Forest | ML   | 88.00   | 88.00    | 00:38  | ✔️  | Estimators: 400           |
+| BERT\_B       | LLM  | 85.45   | 85.79    | 80:38  | ❌   | Layers: 12, Token: 2048   |
+| SVM (Kernel)  | ML   | 81.40   | 81.40    | 00:40  | ✔️  | Kernel: RBF               |
+| Bagging (DT)  | ML   | 78.40   | 78.70    | 00:19  | ✔️  | Estimators: 10            |
+| SVM (Linear)  | ML   | 74.60   | 73.90    | 00:01  | ✔️  | Max\_iter=2000            |
+| KNN           | ML   | 71.40   | 72.70    | 00:00  | ✔️  | Neighbors: 5              |
+| Decision Tree | ML   | 58.90   | 61.20    | 00:01  | ✔️  | Max Depth: 8              |
+
+### 5.3 Traditional ML results on Multi-class Classification
+
+
 Results for 5-Class Authorship Attribution (20.000 samples) Using Machine Learning. In this approach, TF-IDF is applied to the entire C code. Additional features can be incorporated to further improve the results. 
 
 | Model         | Accuracy | Precision | Recall | F1 Score | Time (s) |
@@ -95,5 +162,4 @@ Results for 5-Class Authorship Attribution (20.000 samples) Using Machine Learni
 ![image](https://github.com/user-attachments/assets/238e9d9a-36de-48af-b8ca-8c2bce4101ec)
 
 ![image](https://github.com/user-attachments/assets/5322f248-8af7-4c44-b6ce-06bcc5eddbae)
-
 
