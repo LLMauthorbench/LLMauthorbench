@@ -40,7 +40,22 @@ Key results:
 The LLM-AuthorBench dataset includes 32,000 compilable C programs. You can download the dataset from the following link:
 [⬇️ Download LLM-AuthorBench.json.zip](https://github.com/LLMauthorbench/LLMauthorbench/raw/main/LLM-AuthorBench.json.zip)
 
+ ### 3. Train and Evaluate BERT for LLM Authorship Attribution
 
+ 
+ This Google Colab script verifies that all C code entries in the dataset are compilable by using `gcc -c`. It checks each code sample for syntax errors, type errors, and translation unit correctness, but does not perform linking. In other words, the script assesses the compilability of the dataset's C code, ensuring each file is valid C source code, even though external references may remain unresolved.
+ To ensure that all generated C code samples are valid and compilable as C source files, regardless of external references.
+
+
+- **Description:** This Google Colab script provides an end-to-end pipeline for training a BERT model on the LLM-AuthorBench dataset for authorship attribution tasks. It covers data preprocessing, model training, and evaluation, enabling users to assess the ability of BERT to identify the authorship of generated texts.
+- **Purpose:** To benchmark BERT’s performance on LLM authorship attribution, facilitating research into identifying the origins of AI-generated content.
+- **Script:**:  [3_BERT_training-5-class.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/3_BERT_training-5-class.ipynb)
+
+
+
+For example, in a 5-class authorship attribution task, the confusion matrix for BERT—covering the following models: **Gemini 2.5 Flash, Claude 3.5 Haiku, GPT-4.1, Llama 3.1, and DeepSeek-V3**—can be seen below:
+
+![image](https://github.com/user-attachments/assets/baa2b0dc-b884-479d-a9db-6c5420c7cfb1)
 
 
 Sample Entry from the JSON File:
