@@ -19,6 +19,7 @@ The framework for creating the LLM-AuthorBench dataset is illustrated in the fol
 ## 3. Dataset
 
 The dataset containing 32,000 C compilable C samples from 8 different LLMs.
+This dataset can serve as a reference point for comparing different models in LLM C code authorship attribution.
 
 **DATASET JSON:** [LLM-AuthorBench.json.zip](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/LLM-AuthorBench.json.zip)
 
@@ -148,6 +149,9 @@ The results for 5-class authorship attribution are presented below, ordered by a
 | KNN           | ML   | 71.40   | 72.70    | 00:00  | ✔️  | Neighbors: 5              |
 | Decision Tree | ML   | 58.90   | 61.20    | 00:01  | ✔️  | Max Depth: 8              |
 
+
+
+
 ### 5.3 Traditional ML results on Multi-class Classification
 
 
@@ -166,4 +170,12 @@ Results for 5-Class Authorship Attribution (20.000 samples) Using Machine Learni
 ![image](https://github.com/user-attachments/assets/238e9d9a-36de-48af-b8ca-8c2bce4101ec)
 
 ![image](https://github.com/user-attachments/assets/5322f248-8af7-4c44-b6ce-06bcc5eddbae)
+
+### 5.4 CodeT5-Authorship architecture and confusion matrix for multi-class classification.
+
+![image](https://github.com/user-attachments/assets/f9aa9fa8-54fe-4ea5-91f3-536d7545e455)
+
+CodeT5-Authorship architecture:
+
+![image](https://github.com/user-attachments/assets/cf49224a-341b-4bb5-a3c1-6e4008d80380)
 
