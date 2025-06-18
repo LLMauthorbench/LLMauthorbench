@@ -82,9 +82,10 @@ The LLM-AuthorBench dataset includes 32,000 compilable C programs. You can downl
 
 
  ### 4.5 Train and Evaluate CodeT5-Authorship for LLM Authorship Attribution
+ 
 - **Description:** T This Google Colab script provides a complete pipeline for training and evaluating the CodeT5-Authorship model on the LLM-AuthorBench dataset. The script utilizes only the encoder layers of the pretrained CodeT5 architecture and includes data preprocessing, model training, and evaluation steps. The custom classification head, implemented in PyTorch, enables the model to assign code samples to their source LLMs.
 - **Purpose:** To benchmark the performance of CodeT5-Authorship on LLM authorship attribution, demonstrating the effectiveness of encoder-based architectures for this specialized classification task.
-- **Script:** ⬇️ [5_CodeT5_Authorship_training_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/5_CodeT5_Authorship_training_google_colab.ipynb)
+- **Script:** ⬇️ [5_CodeT5-Authorship_5-class_google_colab.ipynb](https://github.com/LLMauthorbench/LLMauthorbench/blob/main/scripts/5_CodeT5-Authorship_5-class_google_colab.ipynb)
 
 ## 5. Results
 
