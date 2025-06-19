@@ -1,0 +1,4946 @@
+true_model,predicted,prompt,c_code
+gpt-4.1,gpt-4.1,Write a C program that sorts an array of integers.,"#include <stdio.h>
+
+#define SIZE 100  // Maximum array size
+
+void bubbleSort(int arr[], int n) {
+    int i, j, temp;
+    for (i = 0; i < n-1; i++) {
+        for (j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                // swap
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int arr[SIZE], n, i;
+
+    printf(""Enter number of elements (max %d): "", SIZE);
+    scanf(""%d"", &n);
+
+    if(n <= 0 || n > SIZE) {
+        printf(""Invalid number of elements.\n"");
+        return 1;
+    }
+
+    printf(""Enter %d integers: "", n);
+    for(i = 0; i < n; i++)
+        scanf(""%d"", &arr[i]);
+
+    bubbleSort(arr, n);
+
+    printf(""Sorted array: "");
+    for(i = 0; i < n; i++)
+        printf(""%d "", arr[i]);
+    printf(""\n"");
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C program to check if a number is prime.,"#include <stdio.h>
+#include <stdbool.h>
+
+// Function prototype
+bool isPrime(int number);
+
+int main() {
+    int num;
+
+    printf(""Enter a positive integer: "");
+    scanf(""%d"", &num);
+
+    if (num <= 1) {
+        printf(""%d is not a prime number.\n"", num);
+    } else {
+        if (isPrime(num))
+            printf(""%d is a prime number.\n"", num);
+        else
+            printf(""%d is not a prime number.\n"", num);
+    }
+
+    return 0;
+}
+
+// Function to check if a number is prime
+bool isPrime(int number) {
+    if (number <= 1) return false;
+    if (number == 2) return true;
+    if (number % 2 == 0) return false;
+
+    for (int i = 3; i * i <= number; i += 2) {
+        if (number % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}"
+gpt-4.1,gpt-4.1,Generate a C code for matrix multiplication.,"#include <stdio.h>
+
+#define MAX 100
+
+int main() {
+    int a[MAX][MAX], b[MAX][MAX], result[MAX][MAX];
+    int r1, c1, r2, c2;
+    int i, j, k;
+
+    // Input sizes
+    printf(""Enter rows and columns for first matrix: "");
+    scanf(""%d%d"", &r1, &c1);
+    printf(""Enter rows and columns for second matrix: "");
+    scanf(""%d%d"", &r2, &c2);
+
+    // Check if multiplication is possible
+    if (c1 != r2) {
+        printf(""Matrix multiplication not possible: c1 != r2\n"");
+        return 1;
+    }
+
+    // Input matrix A
+    printf(""Enter elements of first matrix:\n"");
+    for (i = 0; i < r1; ++i)
+        for (j = 0; j < c1; ++j)
+            scanf(""%d"", &a[i][j]);
+
+    // Input matrix B
+    printf(""Enter elements of second matrix:\n"");
+    for (i = 0; i < r2; ++i)
+        for (j = 0; j < c2; ++j)
+            scanf(""%d"", &b[i][j]);
+
+    // Multiplying matrices
+    for (i = 0; i < r1; ++i) {
+        for (j = 0; j < c2; ++j) {
+            result[i][j] = 0;
+            for (k = 0; k < c1; ++k) {
+                result[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+
+    // Output result
+    printf(""Product of the two matrices:\n"");
+    for (i = 0; i < r1; ++i) {
+        for (j = 0; j < c2; ++j) {
+            printf(""%d "", result[i][j]);
+        }
+        printf(""\n"");
+    }
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program that reverses a string.,"#include <stdio.h>
+#include <string.h>
+
+// Function to reverse the string
+void reverseString(char* str) {
+    int start = 0;
+    int end = strlen(str) - 1;
+    char temp;
+    
+    while (start < end) {
+        // Swap characters
+        temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        
+        // Move towards the middle
+        start++;
+        end--;
+    }
+}
+
+int main() {
+    char str[100];  // Buffer to hold the input string (max length 99)
+    
+    printf(""Enter a string: "");
+    fgets(str, sizeof(str), stdin);
+    
+    // Remove the newline character read by fgets
+    str[strcspn(str, ""\n"")] = '\0';
+    
+    reverseString(str);
+    
+    printf(""Reversed string: %s\n"", str);
+    
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C program to print Fibonacci numbers.,"#include <stdio.h>
+
+void printFibonacci(int n) {
+    long long int first = 0, second = 1, next;
+    
+    printf(""Fibonacci Series: %lld, %lld"", first, second);
+
+    for (int i = 2; i < n; i++) {
+        next = first + second;
+        printf("", %lld"", next);
+        first = second;
+        second = next;
+    }
+
+    printf(""\n"");
+}
+
+int main() {
+    int terms;
+
+    printf(""Enter the number of terms: "");
+    scanf(""%d"", &terms);
+
+    if (terms < 2) {
+        printf(""Please enter a number greater than or equal to 2.\n"");
+    } else {
+        printFibonacci(terms);
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program for binary search.,"#include <stdio.h>
+
+int binarySearch(int arr[], int n, int key) {
+    int left = 0, right = n - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == key)
+            return mid;  // Found, return index
+        else if (arr[mid] < key)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    
+    return -1;  // Not found
+}
+
+int main() {
+    int arr[] = {2, 4, 7, 10, 23, 29, 38, 45, 59, 66};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    int key;
+    
+    printf(""Enter number to search: "");
+    scanf(""%d"", &key);
+    
+    int result = binarySearch(arr, n, key);
+    
+    if (result != -1)
+        printf(""Element %d found at index %d.\n"", key, result);
+    else
+        printf(""Element %d not found in array.\n"", key);
+    
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program that calculates factorial using recursion.,"#include <stdio.h>
+
+// Function to calculate factorial recursively
+unsigned long long factorial(int n) {
+    if (n == 0 || n == 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+
+int main() {
+    int num;
+    printf(""Enter a non-negative integer: "");
+    scanf(""%d"", &num);
+
+    if (num < 0)
+        printf(""Factorial is not defined for negative numbers.\n"");
+    else
+        printf(""Factorial of %d = %llu\n"", num, factorial(num));
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to merge two arrays.,"#include <stdio.h>
+
+int main() {
+    int n1, n2, i;
+    
+    // Input size of first array
+    printf(""Enter the number of elements in first array: "");
+    scanf(""%d"", &n1);
+    int arr1[n1];
+    
+    // Input elements for first array
+    printf(""Enter elements of first array:\n"");
+    for(i = 0; i < n1; i++) {
+        scanf(""%d"", &arr1[i]);
+    }
+    
+    // Input size of second array
+    printf(""Enter the number of elements in second array: "");
+    scanf(""%d"", &n2);
+    int arr2[n2];
+    
+    // Input elements for second array
+    printf(""Enter elements of second array:\n"");
+    for(i = 0; i < n2; i++) {
+        scanf(""%d"", &arr2[i]);
+    }
+    
+    // Merging arrays
+    int merged[n1 + n2];
+    for(i = 0; i < n1; i++) {
+        merged[i] = arr1[i];
+    }
+    for(i = 0; i < n2; i++) {
+        merged[n1 + i] = arr2[i];
+    }
+    
+    // Printing merged array
+    printf(""Merged array is:\n"");
+    for(i = 0; i < n1 + n2; i++) {
+        printf(""%d "", merged[i]);
+    }
+    printf(""\n"");
+    
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C program that reads a file and counts lines.,"#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    FILE *fp;
+    int count = 0;
+    int c;
+
+    if (argc != 2) {
+        printf(""Usage: %s <filename>\n"", argv[0]);
+        return 1;
+    }
+
+    fp = fopen(argv[1], ""r"");
+    if (fp == NULL) {
+        perror(""Error opening file"");
+        return 1;
+    }
+
+    while ((c = fgetc(fp)) != EOF) {
+        if (c == '\n')
+            count++;
+    }
+
+    fclose(fp);
+
+    printf(""Number of lines: %d\n"", count);
+
+    return 0;
+}"
+gpt-4o,gpt-4.1,Write a C program to swap two variables without a temp variable.,"#include <stdio.h>
+
+int main() {
+    int a, b;
+    
+    // Initialize the variables
+    printf(""Enter value for a: "");
+    scanf(""%d"", &a);
+    printf(""Enter value for b: "");
+    scanf(""%d"", &b);
+    
+    // Display original values
+    printf(""Before swapping: a = %d, b = %d\n"", a, b);
+    
+    // Swap using arithmetic operations
+    a = a + b;  // Step 1
+    b = a - b;  // Step 2
+    a = a - b;  // Step 3
+    
+    // Display swapped values
+    printf(""After swapping: a = %d, b = %d\n"", a, b);
+    
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to compute the GCD of two numbers.,"#include <stdio.h>
+
+// Function to compute GCD using Euclidean algorithm
+int gcd(int a, int b) {
+    while(b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    // Return the greatest common divisor
+    return a;
+}
+
+int main() {
+    int num1, num2;
+    
+    printf(""Enter two integers: "");
+    scanf(""%d %d"", &num1, &num2);
+    
+    // GCD should be non-negative
+    if(num1 < 0) num1 = -num1;
+    if(num2 < 0) num2 = -num2;
+    
+    printf(""GCD of %d and %d is %d\n"", num1, num2, gcd(num1, num2));
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C code for linked list insertion.,"#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Insert at the beginning
+void insertAtBeginning(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    newNode->next = *head;
+    *head = newNode;
+}
+
+// Insert at the end
+void insertAtEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+// Insert after a given node
+void insertAfter(struct Node* prevNode, int data) {
+    if (prevNode == NULL) {
+        printf(""Previous node cannot be NULL\n"");
+        return;
+    }
+    struct Node* newNode = createNode(data);
+    newNode->next = prevNode->next;
+    prevNode->next = newNode;
+}
+
+// Print the linked list
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf(""%d -> "", temp->data);
+        temp = temp->next;
+    }
+    printf(""NULL\n"");
+}
+
+// Example usage
+int main() {
+    struct Node* head = NULL;
+
+    insertAtEnd(&head, 1);
+    insertAtBeginning(&head, 2);
+    insertAtEnd(&head, 3);
+    insertAfter(head->next, 4); // Inserts 4 after head->next (which has data 1)
+
+    printList(head);
+
+    // Free memory
+    struct Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C program that finds the largest element in an array.,"#include <stdio.h>
+
+int main() {
+    int n, i;
+    int arr[100]; // Adjust size as needed
+    int max;
+
+    printf(""Enter the number of elements in the array: "");
+    scanf(""%d"", &n);
+
+    printf(""Enter %d elements:\n"", n);
+    for(i = 0; i < n; i++) {
+        scanf(""%d"", &arr[i]);
+    }
+
+    max = arr[0];
+    for(i = 1; i < n; i++) {
+        if(arr[i] > max) {
+            max = arr[i];
+        }
+    }
+
+    printf(""The largest element in the array is: %d\n"", max);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to check for palindrome.,"#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+// Function to remove non-alphanumeric characters and convert to lowercase
+void preprocessString(const char *input, char *output) {
+    int j = 0;
+    for (int i = 0; input[i] != '\0'; i++) {
+        if (isalnum((unsigned char)input[i])) {
+            output[j++] = tolower((unsigned char)input[i]);
+        }
+    }
+    output[j] = '\0';
+}
+
+// Function to check if a string is a palindrome
+int isPalindrome(const char *str) {
+    int len = strlen(str);
+    for (int i = 0; i < len / 2; i++) {
+        if (str[i] != str[len - 1 - i]) {
+            return 0; // Not a palindrome
+        }
+    }
+    return 1; // Is a palindrome
+}
+
+int main() {
+    char input[100], processed[100];
+
+    printf(""Enter a string to check for palindrome: "");
+    fgets(input, sizeof(input), stdin);
+    // Remove the newline character if present
+    input[strcspn(input, ""\n"")] = '\0';
+
+    preprocessString(input, processed);
+
+    if (isPalindrome(processed)) {
+        printf(""The string is a palindrome.\n"");
+    } else {
+        printf(""The string is not a palindrome.\n"");
+    }
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C program to sum elements of a 2D array.,"#include <stdio.h>
+
+#define ROWS 3
+#define COLS 3
+
+int sum2DArray(int arr[ROWS][COLS]) {
+    int sum = 0;
+    
+    // Loop through each element of the 2D array and add it to the sum
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            sum += arr[i][j];
+        }
+    }
+    
+    return sum;
+}
+
+int main() {
+    // Initialize a 2D array
+    int array[ROWS][COLS] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+    
+    // Calculate the sum of the elements
+    int totalSum = sum2DArray(array);
+    
+    // Print the sum
+    printf(""The sum of all elements in the 2D array is: %d\n"", totalSum);
+    
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C program that prints Pascal's triangle.,"#include <stdio.h>
+
+// Function to calculate factorial of a number
+long factorial(int n) {
+    long result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+// Function to calculate the binomial coefficient ""n choose k""
+long binomialCoefficient(int n, int k) {
+    return factorial(n) / (factorial(k) * factorial(n - k));
+}
+
+// Function to print Pascal's triangle up to the given number of rows
+void printPascalsTriangle(int rows) {
+    for (int n = 0; n < rows; n++) {
+        // Print leading spaces for formatting
+        for (int space = 0; space < rows - n - 1; space++) {
+            printf(""  "");
+        }
+        // Print the numbers in the current row
+        for (int k = 0; k <= n; k++) {
+            printf(""%4ld"", binomialCoefficient(n, k));
+        }
+        printf(""\n"");
+    }
+}
+
+int main() {
+    int numRows;
+
+    printf(""Enter the number of rows for Pascal's Triangle: "");
+    scanf(""%d"", &numRows);
+
+    printPascalsTriangle(numRows);
+
+    return 0;
+}"
+gpt-4o,gpt-4.1,Write a C code to solve quadratic equations.,"#include <stdio.h>
+#include <math.h>
+
+int main() {
+    double a, b, c;
+    double discriminant, root1, root2, realPart, imaginaryPart;
+
+    printf(""Enter coefficients a, b, and c: "");
+    scanf(""%lf %lf %lf"", &a, &b, &c);
+
+    discriminant = b*b - 4*a*c;
+
+    // Check if the discriminant is positive, zero or negative
+    if (discriminant > 0) {
+        // Two distinct and real roots
+        root1 = (-b + sqrt(discriminant)) / (2*a);
+        root2 = (-b - sqrt(discriminant)) / (2*a);
+        printf(""Roots are real and different.\n"");
+        printf(""Root 1 = %.2lf\n"", root1);
+        printf(""Root 2 = %.2lf\n"", root2);
+    }
+    else if (discriminant == 0) {
+        // Two equal and real roots
+        root1 = root2 = -b / (2*a);
+        printf(""Roots are real and the same.\n"");
+        printf(""Root 1 = Root 2 = %.2lf\n"", root1);
+    }
+    else {
+        // Complex conjugate roots
+        realPart = -b / (2*a);
+        imaginaryPart = sqrt(-discriminant) / (2*a);
+        printf(""Roots are complex and different.\n"");
+        printf(""Root 1 = %.2lf + %.2lfi\n"", realPart, imaginaryPart);
+        printf(""Root 2 = %.2lf - %.2lfi\n"", realPart, imaginaryPart);
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to implement a stack.,"#include <stdio.h>
+#include <stdlib.h>
+#define MAX 100
+
+int stack[MAX];
+int top = -1;
+
+void push(int x) {
+    if(top == MAX-1) {
+        printf(""Stack Overflow!\n"");
+        return;
+    }
+    stack[++top] = x;
+    printf(""%d pushed into stack\n"", x);
+}
+
+int pop() {
+    if(top == -1) {
+        printf(""Stack Underflow!\n"");
+        return -1;
+    }
+    int x = stack[top--];
+    printf(""%d popped from stack\n"", x);
+    return x;
+}
+
+void display() {
+    if(top == -1) {
+        printf(""Stack is empty!\n"");
+        return;
+    }
+    printf(""Stack elements: "");
+    for(int i=top; i>=0; i--) {
+        printf(""%d "", stack[i]);
+    }
+    printf(""\n"");
+}
+
+int main() {
+    int choice, value;
+    while(1) {
+        printf(""\n***** STACK MENU *****\n"");
+        printf(""1. Push\n2. Pop\n3. Display\n4. Exit\n"");
+        printf(""Enter your choice: "");
+        scanf(""%d"", &choice);
+        switch(choice) {
+            case 1:
+                printf(""Enter value to push: "");
+                scanf(""%d"", &value);
+                push(value);
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf(""Invalid choice!\n"");
+        }
+    }
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program for selection sort.,"#include <stdio.h>
+
+// Function to swap two integers
+void swap(int *xp, int *yp) {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+// Function to perform selection sort on an array
+void selectionSort(int arr[], int n) {
+    int i, j, minIdx;
+
+    // Move the boundary of the unsorted subarray one by one
+    for (i = 0; i < n-1; i++) {
+        // Find the minimum element in the unsorted array
+        minIdx = i;
+        for (j = i+1; j < n; j++) {
+            if (arr[j] < arr[minIdx]) {
+                minIdx = j;
+            }
+        }
+
+        // Swap the found minimum element with the first element
+        swap(&arr[minIdx], &arr[i]);
+    }
+}
+
+// Function to print an array
+void printArray(int arr[], int size) {
+    int i;
+    for (i = 0; i < size; i++) {
+        printf(""%d "", arr[i]);
+    }
+    printf(""\n"");
+}
+
+// Main function
+int main() {
+    int arr[] = {64, 25, 12, 22, 11};
+    int n = sizeof(arr)/sizeof(arr[0]);
+
+    printf(""Original array: \n"");
+    printArray(arr, n);
+
+    selectionSort(arr, n);
+
+    printf(""Sorted array: \n"");
+    printArray(arr, n);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C code for bubble sort.,"#include <stdio.h>
+
+// Function to perform bubble sort on the array
+void bubbleSort(int array[], int size) {
+    for (int step = 0; step < size - 1; ++step) {
+        // Flag to determine whether any swapping took place
+        int swapped = 0;
+        for (int i = 0; i < size - step - 1; ++i) {
+            // Compare and swap
+            if (array[i] > array[i + 1]) {
+                int temp = array[i];
+                array[i] = array[i + 1];
+                array[i + 1] = temp;
+                swapped = 1;
+            }
+        }
+        // If no elements were swapped, stop the algorithm
+        if (swapped == 0) {
+            break;
+        }
+    }
+}
+
+// Function to print the array
+void printArray(int array[], int size) {
+    for (int i = 0; i < size; ++i) {
+        printf(""%d "", array[i]);
+    }
+    printf(""\n"");
+}
+
+int main() {
+    int data[] = {64, 34, 25, 12, 22, 11, 90};
+    int size = sizeof(data) / sizeof(data[0]);
+
+    printf(""Unsorted array:\n"");
+    printArray(data, size);
+
+    bubbleSort(data, size);
+
+    printf(""Sorted array in ascending order:\n"");
+    printArray(data, size);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to reverse a linked list.,"#include <stdio.h>
+#include <stdlib.h>
+
+// Definition for singly-linked list node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to append node at the end
+void append(struct Node** head_ref, int new_data) {
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+    struct Node* last = *head_ref;
+    new_node->data  = new_data;
+    new_node->next = NULL;
+
+    if (*head_ref == NULL) {
+        *head_ref = new_node;
+        return;
+    }
+
+    while (last->next != NULL) last = last->next;
+    last->next = new_node;
+}
+
+// Function to print linked list
+void printList(struct Node* node) {
+    while (node != NULL) {
+        printf(""%d "", node->data);
+        node = node->next;
+    }
+    printf(""\n"");
+}
+
+// Function to reverse the linked list
+void reverse(struct Node** head_ref) {
+    struct Node* prev = NULL;
+    struct Node* current = *head_ref;
+    struct Node* next = NULL;
+    while (current != NULL) {
+        next = current->next;      // Store next
+        current->next = prev;      // Reverse current node's pointer
+        prev = current;            // Move pointers one position ahead.
+        current = next;
+    }
+    *head_ref = prev;
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    // Let's create a list 1->2->3->4->5
+    append(&head, 1);
+    append(&head, 2);
+    append(&head, 3);
+    append(&head, 4);
+    append(&head, 5);
+
+    printf(""Original Linked List:\n"");
+    printList(head);
+
+    reverse(&head);
+
+    printf(""Reversed Linked List:\n"");
+    printList(head);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C code for circular queue.,"#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 5 // Define the maximum size of the queue
+
+typedef struct {
+    int items[SIZE];
+    int front;
+    int rear;
+} CircularQueue;
+
+// Function to create a new Circular Queue
+CircularQueue* createQueue() {
+    CircularQueue* q = (CircularQueue*)malloc(sizeof(CircularQueue));
+    q->front = -1;
+    q->rear = -1;
+    return q;
+}
+
+// Function to check if the queue is full
+int isFull(CircularQueue* q) {
+    return (q->front == (q->rear + 1) % SIZE);
+}
+
+// Function to check if the queue is empty
+int isEmpty(CircularQueue* q) {
+    return (q->front == -1);
+}
+
+// Function to add an element to the queue
+void enqueue(CircularQueue* q, int value) {
+    if (isFull(q)) {
+        printf(""Queue is full!\n"");
+        return;
+    }
+    
+    if (isEmpty(q)) {
+        q->front = 0;
+    }
+    
+    q->rear = (q->rear + 1) % SIZE;
+    q->items[q->rear] = value;
+    printf(""Inserted %d\n"", value);
+}
+
+// Function to remove an element from the queue
+int dequeue(CircularQueue* q) {
+    if (isEmpty(q)) {
+        printf(""Queue is empty!\n"");
+        return -1;
+    }
+    
+    int result = q->items[q->front];
+    if (q->front == q->rear) { // Queue has only one element
+        q->front = -1;
+        q->rear = -1;
+    } else {
+        q->front = (q->front + 1) % SIZE;
+    }
+    
+    return result;
+}
+
+// Function to display the queue
+void displayQueue(CircularQueue* q) {
+    if (isEmpty(q)) {
+        printf(""Queue is empty!\n"");
+        return;
+    }
+    
+    int i = q->front;
+    printf(""Queue elements are: "");
+    while (i != q->rear) {
+        printf(""%d "", q->items[i]);
+        i = (i + 1) % SIZE;
+    }
+    printf(""%d\n"", q->items[i]);
+}
+
+int main() {
+    CircularQueue* q = createQueue();
+    
+    enqueue(q, 10);
+    enqueue(q, 20);
+    enqueue(q, 30);
+    enqueue(q, 40);
+    enqueue(q, 50);
+    
+    // Attempting to add one more element to the full queue
+    enqueue(q, 60);
+    
+    displayQueue(q);
+    
+    printf(""Dequeued element: %d\n"", dequeue(q));
+    displayQueue(q);
+    
+    enqueue(q, 60);
+    displayQueue(q);
+    
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code for depth-first search.,"#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_VERTICES 100
+
+// Node structure for adjacency list
+struct Node {
+    int vertex;
+    struct Node *next;
+};
+
+// Graph structure
+struct Graph {
+    int numVertices;
+    struct Node **adjLists;
+    int *visited;
+};
+
+// Create a node
+struct Node* createNode(int vertex) {
+    struct Node *newNode = malloc(sizeof(struct Node));
+    newNode->vertex = vertex;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Create a graph
+struct Graph* createGraph(int vertices) {
+    struct Graph *graph = malloc(sizeof(struct Graph));
+    graph->numVertices = vertices;
+
+    graph->adjLists = malloc(vertices * sizeof(struct Node*));
+    graph->visited = malloc(vertices * sizeof(int));
+
+    for (int i = 0; i < vertices; i++) {
+        graph->adjLists[i] = NULL;
+        graph->visited[i] = 0;
+    }
+    return graph;
+}
+
+// Add edge
+void addEdge(struct Graph *graph, int src, int dest) {
+    // Add edge from src to dest
+    struct Node *newNode = createNode(dest);
+    newNode->next = graph->adjLists[src];
+    graph->adjLists[src] = newNode;
+
+    // Uncomment for undirected graph:
+    // newNode = createNode(src);
+    // newNode->next = graph->adjLists[dest];
+    // graph->adjLists[dest] = newNode;
+}
+
+// DFS algorithm
+void DFS(struct Graph *graph, int vertex) {
+    graph->visited[vertex] = 1;
+    printf(""%d "", vertex);
+
+    struct Node *adjList = graph->adjLists[vertex];
+    while (adjList != NULL) {
+        int connectedVertex = adjList->vertex;
+
+        if (graph->visited[connectedVertex] == 0) {
+            DFS(graph, connectedVertex);
+        }
+        adjList = adjList->next;
+    }
+}
+
+// Example usage
+int main() {
+    int vertices = 5;
+
+    struct Graph *graph = createGraph(vertices);
+    addEdge(graph, 0, 1);
+    addEdge(graph, 0, 2);
+    addEdge(graph, 1, 2);
+    addEdge(graph, 1, 3);
+    addEdge(graph, 2, 4);
+
+    printf(""Depth First Search starting from vertex 0:\n"");
+    DFS(graph, 0);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program for breadth-first search.,"#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+// Function prototypes
+void bfs(int graph[MAX][MAX], int n, int start);
+
+int queue[MAX], front = -1, rear = -1;
+
+// Queue operations
+void enqueue(int value) {
+    if(rear == MAX - 1)
+        printf(""Queue Overflow\n"");
+    else {
+        if(front == -1) front = 0;
+        rear++;
+        queue[rear] = value;
+    }
+}
+
+int dequeue() {
+    int value;
+    if(front == -1 || front > rear) {
+        return -1;
+    } else {
+        value = queue[front];
+        front++;
+        return value;
+    }
+}
+
+// BFS function
+void bfs(int graph[MAX][MAX], int n, int start) {
+    int visited[MAX] = {0};
+    int i, node;
+
+    enqueue(start);
+    visited[start] = 1;
+
+    printf(""BFS Traversal: "");
+
+    while(front <= rear) {
+        node = dequeue();
+        if(node != -1) {
+            printf(""%d "", node);
+
+            for(i = 0; i < n; i++) {
+                if(graph[node][i] == 1 && !visited[i]) {
+                    enqueue(i);
+                    visited[i] = 1;
+                }
+            }
+        }
+    }
+    printf(""\n"");
+}
+
+int main() {
+    int n, i, j, start;
+    int graph[MAX][MAX];
+
+    printf(""Enter number of vertices: "");
+    scanf(""%d"", &n);
+
+    printf(""Enter adjacency matrix of the graph:\n"");
+    for(i = 0; i < n; i++)
+        for(j = 0; j < n; j++)
+            scanf(""%d"", &graph[i][j]);
+
+    printf(""Enter starting vertex (0 to %d): "", n-1);
+    scanf(""%d"", &start);
+
+    bfs(graph, n, start);
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to find Armstrong numbers.,"#include <stdio.h>
+#include <math.h>
+
+int isArmstrong(int n) {
+    int temp = n, digits = 0;
+    while (temp != 0) {
+        digits++;
+        temp /= 10;
+    }
+
+    temp = n;
+    int sum = 0;
+    while (temp != 0) {
+        int r = temp % 10;
+        sum += pow(r, digits);
+        temp /= 10;
+    }
+
+    return (sum == n);
+}
+
+int main() {
+    int num;
+    printf(""Enter a number: "");
+    scanf(""%d"", &num);
+
+    if (isArmstrong(num))
+        printf(""%d is an Armstrong number.\n"", num);
+    else
+        printf(""%d is not an Armstrong number.\n"", num);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program for Caesar cipher encryption.,"#include <stdio.h>
+#include <ctype.h>
+
+void caesarEncrypt(char *text, int shift) {
+    char ch;
+    int i = 0;
+
+    while (text[i] != '\0') {
+        ch = text[i];
+        if (isalpha(ch)) {
+            char offset = isupper(ch) ? 'A' : 'a';
+            // shift, wrap within alphabet
+            text[i] = ((ch - offset + shift) % 26) + offset;
+        }
+        i++;
+    }
+}
+
+int main() {
+    char text[100];
+    int shift;
+
+    printf(""Enter a message: "");
+    fgets(text, sizeof(text), stdin);
+
+    printf(""Enter shift value: "");
+    scanf(""%d"", &shift);
+    // For large shifts, wrap to 0-25
+    shift = shift % 26;
+
+    caesarEncrypt(text, shift);
+
+    printf(""Encrypted message: %s\n"", text);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C program for file copy.,"#include <stdio.h>
+#include <stdlib.h>
+
+#define BUFFER_SIZE 1024
+
+void copyFile(const char *sourcePath, const char *destPath) {
+    FILE *sourceFile, *destFile;
+    char buffer[BUFFER_SIZE];
+    size_t bytesRead;
+
+    // Open source file in binary read mode
+    sourceFile = fopen(sourcePath, ""rb"");
+    if (sourceFile == NULL) {
+        perror(""Error opening source file"");
+        exit(EXIT_FAILURE);
+    }
+
+    // Open destination file in binary write mode
+    destFile = fopen(destPath, ""wb"");
+    if (destFile == NULL) {
+        perror(""Error opening destination file"");
+        fclose(sourceFile);
+        exit(EXIT_FAILURE);
+    }
+
+    // Copy file content from source to destination
+    while ((bytesRead = fread(buffer, 1, BUFFER_SIZE, sourceFile)) > 0) {
+        if (fwrite(buffer, 1, bytesRead, destFile) != bytesRead) {
+            perror(""Error writing to destination file"");
+            fclose(sourceFile);
+            fclose(destFile);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    // Close both files
+    fclose(sourceFile);
+    fclose(destFile);
+
+    printf(""File copied successfully from %s to %s\n"", sourcePath, destPath);
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        fprintf(stderr, ""Usage: %s <source_file> <destination_file>\n"", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    copyFile(argv[1], argv[2]);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to find intersection of two arrays.,"#include <stdio.h>
+
+// Function to find the intersection of two arrays
+void findIntersection(int arr1[], int size1, int arr2[], int size2) {
+    printf(""Intersection of the two arrays is: "");
+    for (int i = 0; i < size1; i++) {
+        for (int j = 0; j < size2; j++) {
+            if (arr1[i] == arr2[j]) {
+                printf(""%d "", arr1[i]);
+                break; // Once found, break to prevent multiple prints of the same element
+            }
+        }
+    }
+    printf(""\n"");
+}
+
+int main() {
+    // Example arrays
+    int arr1[] = {1, 2, 4, 5, 6};
+    int arr2[] = {2, 3, 5, 7};
+
+    // Calculate sizes of the arrays
+    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+    int size2 = sizeof(arr2) / sizeof(arr2[0]);
+
+    // Find the intersection
+    findIntersection(arr1, size1, arr2, size2);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C code for binary to decimal conversion.,"#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int binaryToDecimal(const char *binaryString) {
+    int decimalNumber = 0;
+    int length = strlen(binaryString);
+
+    for (int i = 0; i < length; ++i) {
+        if (binaryString[length - i - 1] == '1') {
+            decimalNumber += pow(2, i); // Add 2^i if the bit is 1
+        } else if (binaryString[length - i - 1] != '0') {
+            // If the character is not '0' or '1', it is invalid for a binary number
+            printf(""Invalid binary number\n"");
+            return -1;
+        }
+    }
+    return decimalNumber;
+}
+
+int main() {
+    char binaryString[65]; // Maximum size to hold a 64-bit binary number
+
+    printf(""Enter a binary number: "");
+    scanf(""%64s"", binaryString); // Limit input to 64 characters
+
+    int decimalNumber = binaryToDecimal(binaryString);
+
+    if (decimalNumber != -1) {
+        printf(""The decimal equivalent is: %d\n"", decimalNumber);
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code to print all permutations of a string.,"#include <stdio.h>
+#include <string.h>
+
+// Function to swap two characters
+void swap(char *a, char *b) {
+    char temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Function to generate and print all permutations
+void permute(char *str, int l, int r) {
+    if (l == r) {
+        printf(""%s\n"", str);
+    } else {
+        for (int i = l; i <= r; i++) {
+            swap(&str[l], &str[i]);
+            permute(str, l + 1, r);
+            swap(&str[l], &str[i]); // backtrack
+        }
+    }
+}
+
+int main() {
+    char str[100];
+    printf(""Enter a string: "");
+    scanf(""%s"", str);
+    int n = strlen(str);
+    printf(""Permutations of the string are:\n"");
+    permute(str, 0, n - 1);
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to implement insertion sort.,"#include <stdio.h>
+
+// Function to perform insertion sort on an array
+void insertionSort(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+
+        // Move elements of arr[0..i-1], that are greater than key,
+        // to one position ahead of their current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+// Function to print an array
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++)
+        printf(""%d "", arr[i]);
+    printf(""\n"");
+}
+
+int main() {
+    int arr[] = {12, 11, 13, 5, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf(""Original array: \n"");
+    printArray(arr, n);
+
+    insertionSort(arr, n);
+
+    printf(""Sorted array: \n"");
+    printArray(arr, n);
+
+    return 0;
+}"
+gpt-4.1,gpt-4o,Write a C program for quick sort.,"#include <stdio.h>
+
+// Function to swap two elements
+void swap(int *a, int *b) {
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+// Partition function
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high]; // Choosing the last element as pivot
+    int i = low - 1;
+
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i+1], &arr[high]);
+    return (i + 1);
+}
+
+// QuickSort function
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        // pi is partitioning index
+        int pi = partition(arr, low, high);
+
+        // Recursively sort elements before and after partition
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+// Utility function to print an array
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf(""%d "", arr[i]);
+    }
+    printf(""\n"");
+}
+
+// Main function
+int main() {
+    int arr[] = {10, 7, 8, 9, 1, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf(""Original array: "");
+    printArray(arr, n);
+
+    quickSort(arr, 0, n - 1);
+
+    printf(""Sorted array:   "");
+    printArray(arr, n);
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to convert infix to postfix expression.,"#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+
+#define MAX 100
+
+// Stack functions for operators
+typedef struct {
+    char data[MAX];
+    int top;
+} Stack;
+
+// Initialize stack
+void init(Stack *s) {
+    s->top = -1;
+}
+
+// Check if stack is empty
+int isEmpty(Stack *s) {
+    return s->top == -1;
+}
+
+// Push to stack
+void push(Stack *s, char c) {
+    if (s->top < MAX - 1)
+        s->data[++(s->top)] = c;
+}
+
+// Pop from stack
+char pop(Stack *s) {
+    if (!isEmpty(s))
+        return s->data[(s->top)--];
+    return '\0';
+}
+
+// Peek stack
+char peek(Stack *s) {
+    if (!isEmpty(s))
+        return s->data[s->top];
+    return '\0';
+}
+
+// Precedence of operators
+int precedence(char op) {
+    switch (op) {
+        case '+': case '-':
+            return 1;
+        case '*': case '/':
+            return 2;
+        case '(': 
+            return 0;
+    }
+    return -1;
+}
+
+// Infix to Postfix conversion
+void infixToPostfix(char infix[], char postfix[]) {
+    Stack s;
+    init(&s);
+    int i = 0, k = 0;
+    char ch;
+
+    while ((ch = infix[i++]) != '\0') {
+        if (isspace(ch))
+            continue;
+        if (isalnum(ch)) {
+            postfix[k++] = ch; // Operand goes to output
+        }
+        else if (ch == '(') {
+            push(&s, ch);
+        }
+        else if (ch == ')') {
+            while (!isEmpty(&s) && peek(&s) != '(')
+                postfix[k++] = pop(&s);
+            pop(&s); // Remove '('
+        }
+        else { // Operator
+            while (!isEmpty(&s) && precedence(peek(&s)) >= precedence(ch))
+                postfix[k++] = pop(&s);
+            push(&s, ch);
+        }
+    }
+    // Pop remaining operators
+    while (!isEmpty(&s))
+        postfix[k++] = pop(&s);
+    postfix[k] = '\0';
+}
+
+// Main program
+int main() {
+    char infix[MAX], postfix[MAX];
+
+    printf(""Enter an infix expression: "");
+    fgets(infix, MAX, stdin);
+    infix[strcspn(infix, ""\n"")] = 0; // remove trailing newline
+
+    infixToPostfix(infix, postfix);
+
+    printf(""Postfix expression: %s\n"", postfix);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C program for a simple calculator.,"#include <stdio.h>
+
+int main() {
+    double num1, num2, result;
+    char op;
+
+    printf(""Simple Calculator\n"");
+    printf(""-----------------\n"");
+    printf(""Enter first number: "");
+    scanf(""%lf"", &num1);
+
+    printf(""Enter an operator (+, -, *, /): "");
+    scanf("" %c"", &op); // Notice the space before %c to consume whitespace
+
+    printf(""Enter second number: "");
+    scanf(""%lf"", &num2);
+
+    switch(op) {
+        case '+':
+            result = num1 + num2;
+            printf(""Result: %.2lf\n"", result);
+            break;
+        case '-':
+            result = num1 - num2;
+            printf(""Result: %.2lf\n"", result);
+            break;
+        case '*':
+            result = num1 * num2;
+            printf(""Result: %.2lf\n"", result);
+            break;
+        case '/':
+            if(num2 != 0)
+                result = num1 / num2;
+            else {
+                printf(""Error: Division by zero is not allowed.\n"");
+                return 1;
+            }
+            printf(""Result: %.2lf\n"", result);
+            break;
+        default:
+            printf(""Error: Invalid operator.\n"");
+    }
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to convert Celsius to Fahrenheit.,"#include <stdio.h>
+
+int main() {
+    float celsius, fahrenheit;
+
+    // Prompt the user to enter the temperature in Celsius
+    printf(""Enter temperature in Celsius: "");
+    scanf(""%f"", &celsius);
+
+    // Convert Celsius to Fahrenheit
+    fahrenheit = (celsius * 9 / 5) + 32;
+
+    // Output the result
+    printf(""%.2f Celsius is equal to %.2f Fahrenheit.\n"", celsius, fahrenheit);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C program to check for leap year.,"#include <stdio.h>
+
+int isLeapYear(int year) {
+    // A year is a leap year if it is divisible by 400,
+    // or if it is divisible by 4 but not divisible by 100.
+    if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
+        return 1; // It is a leap year
+    } else {
+        return 0; // It is not a leap year
+    }
+}
+
+int main() {
+    int year;
+
+    // Ask the user to input a year
+    printf(""Enter a year: "");
+    scanf(""%d"", &year);
+
+    // Check if the year is a leap year
+    if (isLeapYear(year)) {
+        printf(""%d is a leap year.\n"", year);
+    } else {
+        printf(""%d is not a leap year.\n"", year);
+    }
+
+    return 0;
+}"
+gpt-4o,gpt-4.1,Write a C program to print a pyramid pattern.,"#include <stdio.h>
+
+int main() {
+    int i, j, rows, k;
+
+    printf(""Enter the number of rows: "");
+    scanf(""%d"", &rows);
+
+    for (i = 1; i <= rows; i++) {
+        // Print spaces
+        for (j = i; j < rows; j++) {
+            printf("" "");
+        }
+
+        // Print asterisks
+        for (k = 1; k <= (2*i-1); k++) {
+            printf(""*"");
+        }
+
+        // Move to the next line
+        printf(""\n"");
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code for a basic tic-tac-toe game.,"#include <stdio.h>
+
+char board[3][3];
+
+void initializeBoard() {
+    int i, j;
+    for(i=0; i<3; i++)
+        for(j=0; j<3; j++)
+            board[i][j] = ' ';
+}
+
+void printBoard() {
+    printf(""\n"");
+    for (int i = 0; i < 3; i++) {
+        printf("" %c | %c | %c "", board[i][0], board[i][1], board[i][2]);
+        if (i < 2) printf(""\n---|---|---\n"");
+    }
+    printf(""\n\n"");
+}
+
+int checkWin() {
+    // Rows and columns
+    for (int i=0;i<3;i++) {
+        if(board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != ' ')
+            return 1;
+        if(board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' ')
+            return 1;
+    }
+    // Diagonals
+    if(board[0][0]==board[1][1] && board[1][1]==board[2][2] && board[0][0]!= ' ')
+        return 1;
+    if(board[0][2]==board[1][1] && board[1][1]==board[2][0] && board[0][2]!= ' ')
+        return 1;
+    return 0;
+}
+
+int isDraw() {
+    for (int i=0; i<3; i++)
+        for (int j=0; j<3; j++)
+            if (board[i][j] == ' ')
+                return 0;
+    return 1;
+}
+
+void getPlayerMove(char player) {
+    int row, col;
+    while (1) {
+        printf(""Player %c, enter your move (row and column: 1 1 for top left): "", player);
+        scanf(""%d %d"", &row, &col);
+        row--; col--;
+        if (row >=0 && row < 3 && col >=0 && col <3 && board[row][col] == ' ') {
+            board[row][col] = player;
+            break;
+        } else {
+            printf(""Invalid move! Try again.\n"");
+        }
+    }
+}
+
+int main() {
+    char player = 'X';
+    initializeBoard();
+    printBoard();
+
+    while(1) {
+        getPlayerMove(player);
+        printBoard();
+        if (checkWin()) {
+            printf(""Player %c wins!\n"", player);
+            break;
+        }
+        if (isDraw()) {
+            printf(""It's a draw!\n"");
+            break;
+        }
+        player = (player == 'X') ? 'O' : 'X';
+    }
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to find the sum of digits of a number.,"#include <stdio.h>
+
+int main() {
+    int num, sum = 0, digit;
+
+    printf(""Enter an integer: "");
+    scanf(""%d"", &num);
+
+    // If number is negative, make it positive
+    if (num < 0) {
+        num = -num;
+    }
+
+    while (num != 0) {
+        digit = num % 10;    // Extract the last digit
+        sum += digit;        // Add digit to sum
+        num /= 10;           // Remove last digit
+    }
+
+    printf(""Sum of digits: %d\n"", sum);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C code for a simple login system.,"#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+// Define a struct for user credentials
+typedef struct {
+    char username[30];
+    char password[30];
+} User;
+
+// Function to authenticate user
+bool authenticate(User users[], int numberOfUsers, char* username, char* password) {
+    for (int i = 0; i < numberOfUsers; i++) {
+        if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int main() {
+    // Predefined users
+    User users[] = {
+        {""user1"", ""pass1""},
+        {""user2"", ""pass2""},
+        {""admin"", ""adminpass""}
+    };
+    int numberOfUsers = sizeof(users) / sizeof(users[0]);
+    
+    char username[30];
+    char password[30];
+    
+    printf(""Login System\n"");
+    printf(""-------------\n"");
+
+    // Input for username
+    printf(""Enter Username: "");
+    scanf(""%s"", username);
+    
+    // Input for password
+    printf(""Enter Password: "");
+    scanf(""%s"", password);
+    
+    // Authenticate user
+    if (authenticate(users, numberOfUsers, username, password)) {
+        printf(""Login successful! Welcome, %s.\n"", username);
+    } else {
+        printf(""Login failed. Incorrect username or password.\n"");
+    }
+    
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C program to implement a queue.,"#include <stdio.h>
+#define MAX 5
+
+int queue[MAX];
+int front = -1, rear = -1;
+
+void enqueue(int value) {
+    if (rear == MAX - 1)
+        printf(""Queue Overflow\n"");
+    else {
+        if (front == -1)
+            front = 0;
+        rear++;
+        queue[rear] = value;
+        printf(""Inserted %d\n"", value);
+    }
+}
+
+void dequeue() {
+    if (front == -1 || front > rear)
+        printf(""Queue Underflow\n"");
+    else {
+        printf(""Deleted %d\n"", queue[front]);
+        front++;
+        if (front > rear) // Queue becomes empty
+            front = rear = -1;
+    }
+}
+
+void display() {
+    if (front == -1)
+        printf(""Queue is empty\n"");
+    else {
+        printf(""Queue: "");
+        for (int i = front; i <= rear; i++)
+            printf(""%d "", queue[i]);
+        printf(""\n"");
+    }
+}
+
+int main() {
+    int choice, value;
+
+    while (1) {
+        printf(""\n1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n"");
+        printf(""Enter your choice: "");
+        scanf(""%d"", &choice);
+
+        switch (choice) {
+            case 1:
+                printf(""Enter value to insert: "");
+                scanf(""%d"", &value);
+                enqueue(value);
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                return 0;
+            default:
+                printf(""Invalid choice\n"");
+        }
+    }
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to remove duplicates from an array.,"#include <stdio.h>
+
+void removeDuplicates(int *array, int n, int *newLength) {
+    if (n == 0) {
+        *newLength = 0;
+        return;
+    }
+    
+    // Auxiliary array to store unique elements
+    int temp[n];
+    int k = 0;
+
+    for (int i = 0; i < n; i++) {
+        int j;
+        // Check if array[i] is already present in temp
+        for (j = 0; j < k; j++) {
+            if (array[i] == temp[j]) {
+                break;
+            }
+        }
+        
+        // If not present, add it to temp
+        if (j == k) {
+            temp[k] = array[i];
+            k++;
+        }
+    }
+
+    // Copy unique elements back to the original array
+    for (int i = 0; i < k; i++) {
+        array[i] = temp[i];
+    }
+
+    *newLength = k;
+}
+
+int main() {
+    int array[] = {1, 2, 3, 2, 4, 3, 5, 6, 4, 5};
+    int n = sizeof(array) / sizeof(array[0]);
+    int newLength;
+
+    removeDuplicates(array, n, &newLength);
+
+    printf(""Array after removing duplicates: "");
+    for (int i = 0; i < newLength; i++) {
+        printf(""%d "", array[i]);
+    }
+    printf(""\n"");
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C program to multiply two matrices.,"#include <stdio.h>
+
+#define MAX 10
+
+void multiplyMatrices(int firstMatrix[MAX][MAX], int secondMatrix[MAX][MAX], int result[MAX][MAX], int rowFirst, int columnFirst, int columnSecond) {
+    int i, j, k;
+    for (i = 0; i < rowFirst; i++) {
+        for (j = 0; j < columnSecond; j++) {
+            result[i][j] = 0;
+            for (k = 0; k < columnFirst; k++) {
+                result[i][j] += firstMatrix[i][k] * secondMatrix[k][j];
+            }
+        }
+    }
+}
+
+void printMatrix(int matrix[MAX][MAX], int row, int column) {
+    int i, j;
+    for (i = 0; i < row; i++) {
+        for (j = 0; j < column; j++) {
+            printf(""%d "", matrix[i][j]);
+        }
+        printf(""\n"");
+    }
+}
+
+int main() {
+    int firstMatrix[MAX][MAX], secondMatrix[MAX][MAX], result[MAX][MAX];
+    int rowFirst, columnFirst, rowSecond, columnSecond;
+    int i, j;
+
+    printf(""Enter rows and columns for first matrix: "");
+    scanf(""%d %d"", &rowFirst, &columnFirst);
+
+    printf(""Enter rows and columns for second matrix: "");
+    scanf(""%d %d"", &rowSecond, &columnSecond);
+
+    // Check if multiplication is possible
+    if (columnFirst != rowSecond) {
+        printf(""Error! The number of columns in the first matrix must be equal to the number of rows in the second matrix.\n"");
+        return -1;
+    }
+
+    // Input first matrix
+    printf(""\nEnter elements of the first matrix:\n"");
+    for (i = 0; i < rowFirst; i++) {
+        for (j = 0; j < columnFirst; j++) {
+            printf(""Enter element a%d%d: "", i + 1, j + 1);
+            scanf(""%d"", &firstMatrix[i][j]);
+        }
+    }
+
+    // Input second matrix
+    printf(""\nEnter elements of the second matrix:\n"");
+    for (i = 0; i < rowSecond; i++) {
+        for (j = 0; j < columnSecond; j++) {
+            printf(""Enter element b%d%d: "", i + 1, j + 1);
+            scanf(""%d"", &secondMatrix[i][j]);
+        }
+    }
+
+    // Multiply matrices
+    multiplyMatrices(firstMatrix, secondMatrix, result, rowFirst, columnFirst, columnSecond);
+
+    // Output the result
+    printf(""\nResultant Matrix:\n"");
+    printMatrix(result, rowFirst, columnSecond);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C code for linear search.,"#include <stdio.h>
+
+// Function to perform linear search
+int linearSearch(int arr[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            return i; // Return the index of the target
+        }
+    }
+    return -1; // Return -1 if the target is not found
+}
+
+int main() {
+    int arr[] = {4, 2, 8, 0, 5, 7};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int target = 5;
+
+    int result = linearSearch(arr, size, target);
+
+    if (result != -1) {
+        printf(""Element found at index: %d\n"", result);
+    } else {
+        printf(""Element not found in the array.\n"");
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to count vowels and consonants in a string.,"#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char str[100]; // buffer for the input string
+    int i, vowels = 0, consonants = 0;
+
+    printf(""Enter a string: "");
+    fgets(str, sizeof(str), stdin); // read string including spaces
+
+    for (i = 0; str[i] != '\0'; i++) {
+        char ch = tolower(str[i]);
+        if (ch >= 'a' && ch <= 'z') { // check if it is a letter
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+                vowels++;
+            } else {
+                consonants++;
+            }
+        }
+    }
+
+    printf(""Vowels: %d\n"", vowels);
+    printf(""Consonants: %d\n"", consonants);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C program to find the minimum and maximum in an array.,"#include <stdio.h>
+
+// Function prototypes
+void findMinMax(int arr[], int size, int *min, int *max);
+
+int main() {
+    // Example array
+    int arr[] = {23, 1, 34, 55, 3, 78, 5, 90, -10, 44};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int min, max;
+
+    findMinMax(arr, size, &min, &max);
+
+    printf(""Minimum element: %d\n"", min);
+    printf(""Maximum element: %d\n"", max);
+
+    return 0;
+}
+
+void findMinMax(int arr[], int size, int *min, int *max) {
+    if (size <= 0) {
+        printf(""Array is empty.\n"");
+        return;
+    }
+
+    // Initialize min and max
+    *min = arr[0];
+    *max = arr[0];
+
+    // Iterate through array to find min and max
+    for (int i = 1; i < size; i++) {
+        if (arr[i] < *min) {
+            *min = arr[i];
+        }
+        if (arr[i] > *max) {
+            *max = arr[i];
+        }
+    }
+}"
+gpt-4.1,gpt-4.1,Write a C code to implement a doubly linked list.,"#include <stdio.h>
+#include <stdlib.h>
+
+// Define the node structure
+typedef struct Node {
+    int data;
+    struct Node *prev;
+    struct Node *next;
+} Node;
+
+// Insert a node at the beginning
+void insertAtBeginning(Node **head, int data) {
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->prev = NULL;
+    newNode->next = *head;
+    if (*head != NULL)
+        (*head)->prev = newNode;
+    *head = newNode;
+}
+
+// Insert a node at the end
+void insertAtEnd(Node **head, int data) {
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    if (*head == NULL) {
+        newNode->prev = NULL;
+        *head = newNode;
+        return;
+    }
+    Node *temp = *head;
+    while (temp->next != NULL)
+        temp = temp->next;
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+// Delete node by value
+void deleteNode(Node **head, int key) {
+    Node *temp = *head;
+    while (temp != NULL && temp->data != key)
+        temp = temp->next;
+    if (temp == NULL) {
+        printf(""Node with value %d not found.\n"", key);
+        return;
+    }
+    // If node to be deleted is head
+    if (*head == temp)
+        *head = temp->next;
+    // Change next if not last node
+    if (temp->next != NULL)
+        temp->next->prev = temp->prev;
+    // Change prev if not first node
+    if (temp->prev != NULL)
+        temp->prev->next = temp->next;
+    free(temp);
+    printf(""Node with value %d deleted.\n"", key);
+}
+
+// Display the list
+void displayList(Node *head) {
+    Node *temp = head;
+    printf(""Doubly Linked List: "");
+    while (temp != NULL) {
+        printf(""%d "", temp->data);
+        temp = temp->next;
+    }
+    printf(""\n"");
+}
+
+// Main function
+int main() {
+    Node *head = NULL;
+
+    insertAtBeginning(&head, 10);
+    insertAtBeginning(&head, 20);
+    insertAtEnd(&head, 30);
+    insertAtEnd(&head, 40);
+
+    displayList(head); // 20 10 30 40
+
+    deleteNode(&head, 10);
+    displayList(head); // 20 30 40
+
+    deleteNode(&head, 100); // Not found
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code for a basic phonebook application.,"#include <stdio.h>
+#include <string.h>
+
+#define MAX_CONTACTS 100
+#define NAME_LENGTH 50
+#define PHONE_LENGTH 15
+
+typedef struct {
+    char name[NAME_LENGTH];
+    char phone[PHONE_LENGTH];
+} Contact;
+
+Contact phonebook[MAX_CONTACTS];
+int contact_count = 0;
+
+// Function to add a new contact
+void addContact() {
+    if (contact_count >= MAX_CONTACTS) {
+        printf(""Phonebook is full!\n"");
+        return;
+    }
+    printf(""Enter name: "");
+    scanf("" %[^\n]"", phonebook[contact_count].name); // read line including spaces
+    printf(""Enter phone: "");
+    scanf("" %[^\n]"", phonebook[contact_count].phone);
+    contact_count++;
+    printf(""Contact added successfully!\n"");
+}
+
+// Function to display all contacts
+void displayContacts() {
+    if (contact_count == 0) {
+        printf(""Phonebook is empty.\n"");
+        return;
+    }
+    printf(""\n-- Contact List --\n"");
+    for (int i = 0; i < contact_count; i++) {
+        printf(""%d. Name: %s, Phone: %s\n"", i + 1, phonebook[i].name, phonebook[i].phone);
+    }
+}
+
+// Function to search for a contact by name
+void searchContact() {
+    char search_name[NAME_LENGTH];
+    printf(""Enter name to search: "");
+    scanf("" %[^\n]"", search_name);
+    int found = 0;
+    for (int i = 0; i < contact_count; i++) {
+        if (strcasecmp(phonebook[i].name, search_name) == 0) {
+            printf(""Contact found:\n"");
+            printf(""Name: %s, Phone: %s\n"", phonebook[i].name, phonebook[i].phone);
+            found = 1;
+            break;
+        }
+    }
+    if (!found)
+        printf(""Contact not found.\n"");
+}
+
+int main() {
+    int choice;
+    do {
+        printf(""\n*** Phonebook Application ***\n"");
+        printf(""1. Add Contact\n"");
+        printf(""2. Display All Contacts\n"");
+        printf(""3. Search Contact\n"");
+        printf(""4. Exit\n"");
+        printf(""Enter your choice: "");
+        scanf(""%d"", &choice);
+        switch (choice) {
+            case 1:
+                addContact();
+                break;
+            case 2:
+                displayContacts();
+                break;
+            case 3:
+                searchContact();
+                break;
+            case 4:
+                printf(""Goodbye!\n"");
+                break;
+            default:
+                printf(""Invalid choice. Try again.\n"");
+        }
+    } while (choice != 4);
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to reverse the order of words in a sentence.,"#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX_LENGTH 1000
+
+void reverseWords(char *sentence);
+
+int main() {
+    char sentence[MAX_LENGTH];
+
+    printf(""Enter a sentence: "");
+    fgets(sentence, MAX_LENGTH, stdin);
+
+    // Remove newline character at the end if it exists
+    sentence[strcspn(sentence, ""\n"")] = '\0';
+
+    reverseWords(sentence);
+
+    printf(""Reversed sentence: %s\n"", sentence);
+
+    return 0;
+}
+
+void reverseWords(char *sentence) {
+    int length = strlen(sentence);
+    char *reversed = (char *)malloc(length + 1);
+
+    if (reversed == NULL) {
+        fprintf(stderr, ""Memory allocation failed\n"");
+        exit(EXIT_FAILURE);
+    }
+
+    int start = length - 1;
+    int end = length;
+    int pos = 0;
+
+    while (start >= 0) {
+        if (sentence[start] == ' ' || start == 0) {
+            int word_start = start == 0 ? start : start + 1;
+            int word_length = end - word_start;
+            
+            strncpy(reversed + pos, &sentence[word_start], word_length);
+            pos += word_length;
+
+            if (start > 0) {
+                reversed[pos] = ' ';
+                pos++;
+            }
+
+            end = start;
+        }
+        start--;
+    }
+
+    reversed[pos] = '\0';
+    strcpy(sentence, reversed);
+
+    free(reversed);
+}"
+gpt-4o,gpt-4o,Create a C code to implement a priority queue.,"#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+typedef struct {
+    int data[MAX_SIZE];
+    int size;
+} PriorityQueue;
+
+// Function prototypes
+void initializeQueue(PriorityQueue *pq);
+void enqueue(PriorityQueue *pq, int value);
+int dequeue(PriorityQueue *pq);
+int peek(PriorityQueue *pq);
+int isEmpty(PriorityQueue *pq);
+void heapifyUp(PriorityQueue *pq, int index);
+void heapifyDown(PriorityQueue *pq, int index);
+
+int main() {
+    PriorityQueue pq;
+    initializeQueue(&pq);
+
+    enqueue(&pq, 10);
+    enqueue(&pq, 20);
+    enqueue(&pq, 30);
+    enqueue(&pq, 5);
+
+    printf(""Top element is: %d\n"", peek(&pq));
+    
+    while (!isEmpty(&pq)) {
+        printf(""Dequeued: %d\n"", dequeue(&pq));
+    }
+
+    return 0;
+}
+
+void initializeQueue(PriorityQueue *pq) {
+    pq->size = 0;
+}
+
+void enqueue(PriorityQueue *pq, int value) {
+    if (pq->size >= MAX_SIZE) {
+        printf(""Queue overflow\n"");
+        return;
+    }
+    pq->data[pq->size] = value;
+    heapifyUp(pq, pq->size);
+    pq->size++;
+}
+
+int dequeue(PriorityQueue *pq) {
+    if (isEmpty(pq)) {
+        printf(""Queue underflow\n"");
+        return -1;
+    }
+    int rootValue = pq->data[0];
+    pq->data[0] = pq->data[pq->size - 1];
+    pq->size--;
+    heapifyDown(pq, 0);
+    return rootValue;
+}
+
+int peek(PriorityQueue *pq) {
+    if (isEmpty(pq)) {
+        printf(""Queue is empty\n"");
+        return -1;
+    }
+    return pq->data[0];
+}
+
+int isEmpty(PriorityQueue *pq) {
+    return pq->size == 0;
+}
+
+void heapifyUp(PriorityQueue *pq, int index) {
+    if (index == 0) {
+        return; // The root node
+    }
+    
+    int parentIndex = (index - 1) / 2;
+    
+    if (pq->data[parentIndex] < pq->data[index]) {
+        // Swap with parent
+        int temp = pq->data[parentIndex];
+        pq->data[parentIndex] = pq->data[index];
+        pq->data[index] = temp;
+        // Recursive call on the parent index
+        heapifyUp(pq, parentIndex);
+    }
+}
+
+void heapifyDown(PriorityQueue *pq, int index) {
+    int leftChild = 2 * index + 1;
+    int rightChild = 2 * index + 2;
+    int largest = index;
+
+    if (leftChild < pq->size && pq->data[leftChild] > pq->data[largest]) {
+        largest = leftChild;
+    }
+
+    if (rightChild < pq->size && pq->data[rightChild] > pq->data[largest]) {
+        largest = rightChild;
+    }
+
+    if (largest != index) {
+        // Swap with largest child
+        int temp = pq->data[index];
+        pq->data[index] = pq->data[largest];
+        pq->data[largest] = temp;
+        // Recursive call on the largest index
+        heapifyDown(pq, largest);
+    }
+}"
+gpt-4o,gpt-4o,Generate a C code for a simple address book.,"#include <stdio.h>
+#include <string.h>
+
+#define MAX_CONTACTS 100
+#define NAME_LENGTH 50
+#define PHONE_LENGTH 15
+#define EMAIL_LENGTH 50
+
+typedef struct {
+    char name[NAME_LENGTH];
+    char phone[PHONE_LENGTH];
+    char email[EMAIL_LENGTH];
+} Contact;
+
+Contact addressBook[MAX_CONTACTS];
+int contactCount = 0;
+
+void addContact() {
+    if (contactCount < MAX_CONTACTS) {
+        printf(""Enter name: "");
+        scanf("" %[^\n]"", addressBook[contactCount].name);
+        printf(""Enter phone: "");
+        scanf(""%s"", addressBook[contactCount].phone);
+        printf(""Enter email: "");
+        scanf(""%s"", addressBook[contactCount].email);
+        contactCount++;
+    } else {
+        printf(""Address book is full!\n"");
+    }
+}
+
+void viewContacts() {
+    if (contactCount == 0) {
+        printf(""No contacts to display.\n"");
+        return;
+    }
+    for (int i = 0; i < contactCount; i++) {
+        printf(""Contact %d:\n"", i + 1);
+        printf(""Name: %s\n"", addressBook[i].name);
+        printf(""Phone: %s\n"", addressBook[i].phone);
+        printf(""Email: %s\n"", addressBook[i].email);
+        printf(""\n"");
+    }
+}
+
+void updateContact() {
+    int index;
+    printf(""Enter the contact number to update: "");
+    scanf(""%d"", &index);
+
+    if (index < 1 || index > contactCount) {
+        printf(""Invalid contact number!\n"");
+        return;
+    }
+
+    index--;  // Adjusting for 0-based array index
+    printf(""Enter new name: "");
+    scanf("" %[^\n]"", addressBook[index].name);
+    printf(""Enter new phone: "");
+    scanf(""%s"", addressBook[index].phone);
+    printf(""Enter new email: "");
+    scanf(""%s"", addressBook[index].email);
+}
+
+void deleteContact() {
+    int index;
+    printf(""Enter the contact number to delete: "");
+    scanf(""%d"", &index);
+
+    if (index < 1 || index > contactCount) {
+        printf(""Invalid contact number!\n"");
+        return;
+    }
+    
+    index--;  // Adjusting for 0-based array index
+    for (int i = index; i < contactCount - 1; i++) {
+        addressBook[i] = addressBook[i + 1];
+    }
+    contactCount--;
+    printf(""Contact deleted successfully.\n"");
+}
+
+int main() {
+    int choice;
+
+    do {
+        printf(""\nAddress Book Menu:\n"");
+        printf(""1. Add Contact\n"");
+        printf(""2. View Contacts\n"");
+        printf(""3. Update Contact\n"");
+        printf(""4. Delete Contact\n"");
+        printf(""5. Exit\n"");
+        printf(""Enter your choice: "");
+        scanf(""%d"", &choice);
+
+        switch (choice) {
+            case 1:
+                addContact();
+                break;
+            case 2:
+                viewContacts();
+                break;
+            case 3:
+                updateContact();
+                break;
+            case 4:
+                deleteContact();
+                break;
+            case 5:
+                printf(""Exiting...\n"");
+                break;
+            default:
+                printf(""Invalid choice! Please try again.\n"");
+        }
+    } while (choice != 5);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C program to implement a queue.,"#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 5 // Maximum size of the queue
+
+// Structure for the queue
+typedef struct Queue {
+    int items[SIZE];
+    int front;
+    int rear;
+} Queue;
+
+// Function to create a new queue
+Queue* createQueue() {
+    Queue* q = (Queue*)malloc(sizeof(Queue));
+    q->front = -1;
+    q->rear = -1;
+    return q;
+}
+
+// Check if the queue is full
+int isFull(Queue* q) {
+    return (q->rear == SIZE - 1);
+}
+
+// Check if the queue is empty
+int isEmpty(Queue* q) {
+    return (q->front == -1 || q->front > q->rear);
+}
+
+// Add an element to the queue
+void enqueue(Queue* q, int value) {
+    if (isFull(q)) {
+        printf(""Queue is full!\n"");
+    } else {
+        if (q->front == -1) {
+            q->front = 0;
+        }
+        q->rear++;
+        q->items[q->rear] = value;
+        printf(""Inserted %d\n"", value);
+    }
+}
+
+// Remove an element from the queue
+int dequeue(Queue* q) {
+    int item;
+    if (isEmpty(q)) {
+        printf(""Queue is empty!\n"");
+        return -1;
+    } else {
+        item = q->items[q->front];
+        q->front++;
+        if (q->front > q->rear) {
+            q->front = q->rear = -1; // Reset the queue
+        }
+        printf(""Removed %d\n"", item);
+        return item;
+    }
+}
+
+// Display elements of the queue
+void displayQueue(Queue* q) {
+    if (isEmpty(q)) {
+        printf(""Queue is empty!\n"");
+    } else {
+        printf(""Queue elements are: "");
+        for (int i = q->front; i <= q->rear; i++) {
+            printf(""%d "", q->items[i]);
+        }
+        printf(""\n"");
+    }
+}
+
+// Main function to demonstrate the queue operations
+int main() {
+    Queue* q = createQueue();
+
+    enqueue(q, 10);
+    enqueue(q, 20);
+    enqueue(q, 30);
+    enqueue(q, 40);
+    enqueue(q, 50);
+
+    displayQueue(q);
+
+    dequeue(q);
+    dequeue(q);
+
+    displayQueue(q);
+
+    enqueue(q, 60);
+    enqueue(q, 70); // This will show queue is full
+
+    displayQueue(q);
+
+    // Free allocated memory
+    free(q);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to merge two arrays.,"#include <stdio.h>
+
+int main() {
+    int n1, n2, i, j;
+    
+    // Input size of first array
+    printf(""Enter number of elements in first array: "");
+    scanf(""%d"", &n1);
+    int arr1[n1];
+    
+    // Input elements of first array
+    printf(""Enter elements of first array:\n"");
+    for(i = 0; i < n1; i++) {
+        scanf(""%d"", &arr1[i]);
+    }
+    
+    // Input size of second array
+    printf(""Enter number of elements in second array: "");
+    scanf(""%d"", &n2);
+    int arr2[n2];
+    
+    // Input elements of second array
+    printf(""Enter elements of second array:\n"");
+    for(i = 0; i < n2; i++) {
+        scanf(""%d"", &arr2[i]);
+    }
+    
+    // Create merged array of size n1 + n2
+    int merged[n1+n2];
+    
+    // Copy first array to merged array
+    for(i = 0; i < n1; i++) {
+        merged[i] = arr1[i];
+    }
+    // Copy second array to merged array
+    for(j = 0; j < n2; j++) {
+        merged[i+j] = arr2[j];
+    }
+    
+    // Print merged array
+    printf(""Merged array:\n"");
+    for(i = 0; i < n1+n2; i++) {
+        printf(""%d "", merged[i]);
+    }
+    printf(""\n"");
+    
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to check if a number is prime.,"#include <stdio.h>
+
+int main() {
+    int n, i, isPrime = 1;
+
+    printf(""Enter a positive integer: "");
+    scanf(""%d"", &n);
+
+    // Check if number is less than 2
+    if (n <= 1) {
+        printf(""%d is not a prime number.\n"", n);
+        return 0;
+    }
+
+    // Check divisibility up to sqrt(n)
+    for (i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            isPrime = 0;
+            break;
+        }
+    }
+
+    if (isPrime)
+        printf(""%d is a prime number.\n"", n);
+    else
+        printf(""%d is not a prime number.\n"", n);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C code for a basic phonebook application.,"#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_CONTACTS 100
+#define NAME_LENGTH 50
+#define PHONE_LENGTH 15
+
+typedef struct {
+    char name[NAME_LENGTH];
+    char phone[PHONE_LENGTH];
+} Contact;
+
+void addContact(Contact contacts[], int *currentSize) {
+    if (*currentSize >= MAX_CONTACTS) {
+        printf(""Phonebook is full. Cannot add more contacts.\n"");
+        return;
+    }
+
+    printf(""Enter name: "");
+    scanf(""%s"", contacts[*currentSize].name);
+
+    printf(""Enter phone number: "");
+    scanf(""%s"", contacts[*currentSize].phone);
+
+    (*currentSize)++;
+    printf(""Contact added successfully.\n"");
+}
+
+void searchContacts(Contact contacts[], int currentSize) {
+    char searchName[NAME_LENGTH];
+    printf(""Enter name to search: "");
+    scanf(""%s"", searchName);
+
+    for (int i = 0; i < currentSize; i++) {
+        if (strcmp(contacts[i].name, searchName) == 0) {
+            printf(""Contact found: %s - %s\n"", contacts[i].name, contacts[i].phone);
+            return;
+        }
+    }
+    printf(""Contact not found.\n"");
+}
+
+void displayContacts(Contact contacts[], int currentSize) {
+    if (currentSize == 0) {
+        printf(""No contacts to display.\n"");
+        return;
+    }
+
+    printf(""\nPhonebook Contacts:\n"");
+    for (int i = 0; i < currentSize; i++) {
+        printf(""%s - %s\n"", contacts[i].name, contacts[i].phone);
+    }
+}
+
+int main() {
+    Contact contacts[MAX_CONTACTS];
+    int currentSize = 0;
+    int choice;
+
+    while (1) {
+        printf(""\nPhonebook Menu:\n"");
+        printf(""1. Add Contact\n"");
+        printf(""2. Search Contact\n"");
+        printf(""3. Display All Contacts\n"");
+        printf(""4. Exit\n"");
+        printf(""Enter choice: "");
+        scanf(""%d"", &choice);
+
+        switch (choice) {
+            case 1:
+                addContact(contacts, &currentSize);
+                break;
+            case 2:
+                searchContacts(contacts, currentSize);
+                break;
+            case 3:
+                displayContacts(contacts, currentSize);
+                break;
+            case 4:
+                printf(""Exiting phonebook.\n"");
+                exit(0);
+            default:
+                printf(""Invalid choice. Please try again.\n"");
+        }
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to implement a stack.,"#include <stdio.h>
+#include <stdlib.h>
+#define MAX 100
+
+// Stack structure
+typedef struct {
+    int arr[MAX];
+    int top;
+} Stack;
+
+// Initialize stack
+void init(Stack *s) {
+    s->top = -1;
+}
+
+// Check if stack is full
+int isFull(Stack *s) {
+    return s->top == MAX - 1;
+}
+
+// Check if stack is empty
+int isEmpty(Stack *s) {
+    return s->top == -1;
+}
+
+// Push an element onto the stack
+void push(Stack *s, int data) {
+    if (isFull(s)) {
+        printf(""Stack Overflow!\n"");
+        return;
+    }
+    s->arr[++(s->top)] = data;
+    printf(""%d pushed onto stack.\n"", data);
+}
+
+// Pop an element from the stack
+int pop(Stack *s) {
+    if (isEmpty(s)) {
+        printf(""Stack Underflow!\n"");
+        return -1;
+    }
+    int data = s->arr[(s->top)--];
+    printf(""%d popped from stack.\n"", data);
+    return data;
+}
+
+// Peek the top element
+int peek(Stack *s) {
+    if (isEmpty(s)) {
+        printf(""Stack is empty!\n"");
+        return -1;
+    }
+    return s->arr[s->top];
+}
+
+// Display stack elements
+void display(Stack *s) {
+    if (isEmpty(s)) {
+        printf(""Stack is empty!\n"");
+        return;
+    }
+    printf(""Stack elements: "");
+    for (int i = s->top; i >= 0; i--)
+        printf(""%d "", s->arr[i]);
+    printf(""\n"");
+}
+
+// Main function to test stack operations
+int main() {
+    Stack s;
+    init(&s);
+    int choice, val;
+
+    while (1) {
+        printf(""\n--- Stack Menu ---\n"");
+        printf(""1. Push\n2. Pop\n3. Peek\n4. Display\n5. Exit\n"");
+        printf(""Enter your choice: "");
+        scanf(""%d"", &choice);
+        switch (choice) {
+            case 1:
+                printf(""Enter value to push: "");
+                scanf(""%d"", &val);
+                push(&s, val);
+                break;
+            case 2:
+                pop(&s);
+                break;
+            case 3:
+                val = peek(&s);
+                if (val != -1)
+                    printf(""Top element: %d\n"", val);
+                break;
+            case 4:
+                display(&s);
+                break;
+            case 5:
+                exit(0);
+            default:
+                printf(""Invalid choice! Please try again.\n"");
+        }
+    }
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C program that prints Pascal's triangle.,"#include <stdio.h>
+
+// Function to calculate binomial coefficient C(n, k)
+int binomialCoeff(int n, int k) {
+    int res = 1;
+    int i;
+    if (k > n - k)
+        k = n - k; // Take advantage of symmetry
+
+    for (i = 0; i < k; ++i) {
+        res *= (n - i);
+        res /= (i + 1);
+    }
+    return res;
+}
+
+int main() {
+    int n, i, j;
+
+    printf(""Enter number of rows: "");
+    scanf(""%d"", &n);
+
+    for (i = 0; i < n; i++) {
+        // Print leading spaces for alignment
+        for (j = 0; j < n - i - 1; j++)
+            printf(""  "");
+        
+        for (j = 0; j <= i; j++)
+            printf(""%4d"", binomialCoeff(i, j));
+        printf(""\n"");
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to sum elements of a 2D array.,"#include <stdio.h>
+
+#define ROWS 3
+#define COLS 4
+
+int main() {
+    int arr[ROWS][COLS];
+    int i, j, sum = 0;
+
+    // Input elements
+    printf(""Enter elements of %dx%d array:\n"", ROWS, COLS);
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS; j++) {
+            scanf(""%d"", &arr[i][j]);
+        }
+    }
+
+    // Calculate sum of elements
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS; j++) {
+            sum += arr[i][j];
+        }
+    }
+
+    printf(""Sum of all elements = %d\n"", sum);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C program that reads a file and counts lines.,"#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    FILE *fp;
+    int ch;
+    int lines = 0;
+
+    if (argc != 2) {
+        printf(""Usage: %s <filename>\n"", argv[0]);
+        return 1;
+    }
+
+    fp = fopen(argv[1], ""r"");
+    if (fp == NULL) {
+        perror(""Error opening file"");
+        return 1;
+    }
+
+    while ((ch = fgetc(fp)) != EOF) {
+        if (ch == '\n')
+            lines++;
+    }
+
+    fclose(fp);
+
+    printf(""Total lines: %d\n"", lines);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code for a basic phonebook application.,"#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX_CONTACTS 100
+#define NAME_LEN 50
+#define PHONE_LEN 15
+
+typedef struct {
+    char name[NAME_LEN];
+    char phone[PHONE_LEN];
+} Contact;
+
+Contact phonebook[MAX_CONTACTS];
+int contact_count = 0;
+
+void addContact() {
+    if (contact_count >= MAX_CONTACTS) {
+        printf(""Phonebook is full!\n"");
+        return;
+    }
+    printf(""Enter name: "");
+    scanf("" %[^\n]"", phonebook[contact_count].name);
+    printf(""Enter phone: "");
+    scanf("" %[^\n]"", phonebook[contact_count].phone);
+    contact_count++;
+    printf(""Contact added!\n"");
+}
+
+void displayContacts() {
+    if (contact_count == 0) {
+        printf(""No contacts to display.\n"");
+        return;
+    }
+    printf(""\n--- Contact List ---\n"");
+    for (int i = 0; i < contact_count; i++) {
+        printf(""%d. Name: %s\tPhone: %s\n"", i + 1, phonebook[i].name, phonebook[i].phone);
+    }
+}
+
+void searchContact() {
+    char search_name[NAME_LEN];
+    printf(""Enter name to search: "");
+    scanf("" %[^\n]"", search_name);
+    int found = 0;
+    for (int i = 0; i < contact_count; i++) {
+        if (strcasecmp(phonebook[i].name, search_name) == 0) {
+            printf(""Found: Name: %s\tPhone: %s\n"", phonebook[i].name, phonebook[i].phone);
+            found = 1;
+        }
+    }
+    if (!found) {
+        printf(""Contact not found.\n"");
+    }
+}
+
+void deleteContact() {
+    char del_name[NAME_LEN];
+    printf(""Enter name to delete: "");
+    scanf("" %[^\n]"", del_name);
+    int found = 0;
+    for (int i = 0; i < contact_count; i++) {
+        if (strcasecmp(phonebook[i].name, del_name) == 0) {
+            for (int j = i; j < contact_count - 1; j++) {
+                phonebook[j] = phonebook[j+1];
+            }
+            contact_count--;
+            found = 1;
+            printf(""Contact deleted.\n"");
+            break;
+        }
+    }
+    if (!found) {
+        printf(""Contact not found.\n"");
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        printf(""\n--- Phonebook Menu ---\n"");
+        printf(""1. Add Contact\n"");
+        printf(""2. Display Contacts\n"");
+        printf(""3. Search Contact\n"");
+        printf(""4. Delete Contact\n"");
+        printf(""5. Exit\n"");
+        printf(""Enter your choice: "");
+        scanf(""%d"", &choice);
+        switch(choice) {
+            case 1: addContact(); break;
+            case 2: displayContacts(); break;
+            case 3: searchContact(); break;
+            case 4: deleteContact(); break;
+            case 5: printf(""Exiting...\n""); break;
+            default: printf(""Invalid choice.\n"");
+        }
+    } while (choice != 5);
+    return 0;
+}"
+gpt-4o,gpt-4.1,Create a C program that calculates factorial using recursion.,"#include <stdio.h>
+
+// Function to calculate factorial recursively
+unsigned long long factorial(int n) {
+    if (n < 0) {
+        // Factorial is not defined for negative numbers
+        return 0;
+    }
+    if (n == 0) {
+        // Base case: 0! = 1
+        return 1;
+    } else {
+        // Recursive case
+        return n * factorial(n - 1);
+    }
+}
+
+int main() {
+    int number;
+    printf(""Enter a non-negative integer: "");
+    scanf(""%d"", &number);
+
+    if (number < 0) {
+        printf(""Factorial is not defined for negative numbers.\n"");
+    } else {
+        printf(""Factorial of %d is %llu\n"", number, factorial(number));
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code for linear search.,"#include <stdio.h>
+
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key)
+            return i;  // Element found, return its index
+    }
+    return -1; // Element not found
+}
+
+int main() {
+    int n, key;
+    printf(""Enter the number of elements: "");
+    scanf(""%d"", &n);
+
+    int arr[n];
+    printf(""Enter %d elements:\n"", n);
+    for (int i = 0; i < n; i++)
+        scanf(""%d"", &arr[i]);
+
+    printf(""Enter the element to search for: "");
+    scanf(""%d"", &key);
+
+    int result = linearSearch(arr, n, key);
+
+    if (result == -1)
+        printf(""Element not found in the array.\n"");
+    else
+        printf(""Element found at index %d (position %d).\n"", result, result + 1);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C code for a basic phonebook application.,"#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_CONTACTS 100
+#define NAME_LENGTH 50
+#define PHONE_LENGTH 15
+
+typedef struct {
+    char name[NAME_LENGTH];
+    char phone[PHONE_LENGTH];
+} Contact;
+
+void addContact(Contact contacts[], int *count) {
+    if (*count >= MAX_CONTACTS) {
+        printf(""Phonebook is full. Cannot add more contacts.\n"");
+        return;
+    }
+
+    printf(""Enter contact name: "");
+    scanf("" %[^\n]%*c"", contacts[*count].name);  // Read until newline
+    printf(""Enter contact phone number: "");
+    scanf("" %[^\n]%*c"", contacts[*count].phone); // Read until newline
+
+    (*count)++;
+    printf(""Contact added successfully!\n"");
+}
+
+void displayContacts(Contact contacts[], int count) {
+    if (count == 0) {
+        printf(""Phonebook is empty.\n"");
+        return;
+    }
+
+    printf(""\nCurrent contacts in phonebook:\n"");
+    for (int i = 0; i < count; i++) {
+        printf(""%d. %s - %s\n"", i + 1, contacts[i].name, contacts[i].phone);
+    }
+}
+
+void searchContact(Contact contacts[], int count) {
+    if (count == 0) {
+        printf(""Phonebook is empty.\n"");
+        return;
+    }
+
+    char searchName[NAME_LENGTH];
+    printf(""Enter name to search: "");
+    scanf("" %[^\n]%*c"", searchName);
+
+    for (int i = 0; i < count; i++) {
+        if (strcmp(contacts[i].name, searchName) == 0) {
+            printf(""Contact found: %s - %s\n"", contacts[i].name, contacts[i].phone);
+            return;
+        }
+    }
+
+    printf(""Contact not found.\n"");
+}
+
+int main() {
+    Contact contacts[MAX_CONTACTS];
+    int contactCount = 0;
+    int choice;
+
+    do {
+        printf(""\nPhonebook Menu\n"");
+        printf(""1. Add Contact\n"");
+        printf(""2. Display Contacts\n"");
+        printf(""3. Search Contact\n"");
+        printf(""4. Exit\n"");
+        printf(""Enter your choice: "");
+        scanf(""%d"", &choice);
+
+        switch (choice) {
+        case 1:
+            addContact(contacts, &contactCount);
+            break;
+        case 2:
+            displayContacts(contacts, contactCount);
+            break;
+        case 3:
+            searchContact(contacts, contactCount);
+            break;
+        case 4:
+            printf(""Exiting phonebook application.\n"");
+            break;
+        default:
+            printf(""Invalid choice. Please try again.\n"");
+        }
+    } while (choice != 4);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C program to sum elements of a 2D array.,"#include <stdio.h>
+
+// Function prototype
+int sumOf2DArray(int rows, int cols, int array[rows][cols]);
+
+int main() {
+    // Define a 2D array
+    int array[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+    
+    // Get the number of rows and columns
+    int rows = sizeof(array) / sizeof(array[0]);
+    int cols = sizeof(array[0]) / sizeof(array[0][0]);
+    
+    // Calculate the sum of the array's elements
+    int sum = sumOf2DArray(rows, cols, array);
+    
+    // Print the resulting sum
+    printf(""The sum of the 2D array elements is: %d\n"", sum);
+    
+    return 0;
+}
+
+// Function to sum the elements of a 2D array
+int sumOf2DArray(int rows, int cols, int array[rows][cols]) {
+    int sum = 0;
+    
+    // Iterate over each element in the 2D array
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            sum += array[i][j]; // Add each element to sum
+        }
+    }
+    
+    return sum;
+}"
+gpt-4o,gpt-4o,Create a C code for linked list insertion.,"#include <stdio.h>
+#include <stdlib.h>
+
+// Definition of the linked list node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf(""Memory allocation failed\n"");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to insert a node at the beginning of the linked list
+void insertAtBeginning(struct Node** head_ref, int data) {
+    struct Node* newNode = createNode(data);
+    newNode->next = *head_ref;
+    *head_ref = newNode;
+    printf(""Inserted %d at the beginning\n"", data);
+}
+
+// Function to insert a node at the end of the linked list
+void insertAtEnd(struct Node** head_ref, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head_ref == NULL) {
+        *head_ref = newNode;
+        printf(""Inserted %d at the end\n"", data);
+        return;
+    }
+    struct Node* temp = *head_ref;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    printf(""Inserted %d at the end\n"", data);
+}
+
+// Function to insert a node after a given node
+void insertAfterNode(struct Node* prevNode, int data) {
+    if (prevNode == NULL) {
+        printf(""Previous node cannot be NULL\n"");
+        return;
+    }
+    struct Node* newNode = createNode(data);
+    newNode->next = prevNode->next;
+    prevNode->next = newNode;
+    printf(""Inserted %d after the given node\n"", data);
+}
+
+// Function to print the linked list
+void printList(struct Node* node) {
+    while (node != NULL) {
+        printf(""%d -> "", node->data);
+        node = node->next;
+    }
+    printf(""NULL\n"");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    insertAtEnd(&head, 10);
+    insertAtBeginning(&head, 20);
+    insertAtBeginning(&head, 30);
+    insertAtEnd(&head, 40);
+    
+    printList(head);
+
+    // Insert after the head node (which currently contains 30)
+    insertAfterNode(head, 25);
+
+    printList(head);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C code for a basic phonebook application.,"#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_CONTACTS 100
+#define NAME_LENGTH 50
+#define PHONE_LENGTH 15
+
+typedef struct {
+    char name[NAME_LENGTH];
+    char phone[PHONE_LENGTH];
+} Contact;
+
+void addContact(Contact phonebook[], int *count) {
+    if (*count >= MAX_CONTACTS) {
+        printf(""Phonebook is full. Cannot add more contacts.\n"");
+        return;
+    }
+    printf(""Enter name: "");
+    scanf(""%s"", phonebook[*count].name);
+    printf(""Enter phone number: "");
+    scanf(""%s"", phonebook[*count].phone);
+    (*count)++;
+    printf(""Contact added successfully.\n"");
+}
+
+void displayContacts(Contact phonebook[], int count) {
+    if (count == 0) {
+        printf(""Phonebook is empty.\n"");
+        return;
+    }
+    printf(""\nPhonebook:\n"");
+    for (int i = 0; i < count; i++) {
+        printf(""%d. Name: %s, Phone: %s\n"", i + 1, phonebook[i].name, phonebook[i].phone);
+    }
+}
+
+void searchContact(Contact phonebook[], int count) {
+    char searchName[NAME_LENGTH];
+    printf(""Enter the name to search: "");
+    scanf(""%s"", searchName);
+    
+    for (int i = 0; i < count; i++) {
+        if (strcmp(phonebook[i].name, searchName) == 0) {
+            printf(""Contact found: Name: %s, Phone: %s\n"", phonebook[i].name, phonebook[i].phone);
+            return;
+        }
+    }
+    printf(""Contact not found.\n"");
+}
+
+int main() {
+    Contact phonebook[MAX_CONTACTS];
+    int count = 0;
+    int choice;
+
+    do {
+        printf(""\nPhonebook Menu:\n"");
+        printf(""1. Add contact\n"");
+        printf(""2. Display contacts\n"");
+        printf(""3. Search contact\n"");
+        printf(""4. Exit\n"");
+        printf(""Enter your choice: "");
+        scanf(""%d"", &choice);
+
+        switch (choice) {
+            case 1:
+                addContact(phonebook, &count);
+                break;
+            case 2:
+                displayContacts(phonebook, count);
+                break;
+            case 3:
+                searchContact(phonebook, count);
+                break;
+            case 4:
+                printf(""Exiting phonebook.\n"");
+                break;
+            default:
+                printf(""Invalid choice. Please try again.\n"");
+        }
+    } while (choice != 4);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to print Fibonacci numbers.,"#include <stdio.h>
+
+int main() {
+    int n, first = 0, second = 1, next, i;
+
+    printf(""Enter the number of Fibonacci numbers to print: "");
+    scanf(""%d"", &n);
+
+    printf(""Fibonacci Series: "");
+
+    for (i = 0; i < n; i++) {
+        if (i <= 1)
+            next = i;
+        else {
+            next = first + second;
+            first = second;
+            second = next;
+        }
+        printf(""%d "", next);
+    }
+
+    printf(""\n"");
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program that reverses a string.,"#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100], temp;
+    int i, len;
+
+    printf(""Enter a string: "");
+    fgets(str, sizeof(str), stdin);
+
+    // Remove newline character if any
+    len = strlen(str);
+    if(str[len-1] == '\n') {
+        str[len-1] = '\0';
+        len--;
+    }
+
+    for (i = 0; i < len / 2; i++) {
+        temp = str[i];
+        str[i] = str[len - i - 1];
+        str[len - i - 1] = temp;
+    }
+
+    printf(""Reversed string: %s\n"", str);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C code for linked list insertion.,"#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for a node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to insert a node at the beginning of the linked list
+void insertAtBeginning(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    newNode->next = *head;
+    *head = newNode;
+}
+
+// Function to insert a node at the end of the linked list
+void insertAtEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+// Function to insert a node at a given position in the linked list
+void insertAtPosition(struct Node** head, int data, int position) {
+    if (position < 0) {
+        printf(""Invalid position\n"");
+        return;
+    }
+    
+    struct Node* newNode = createNode(data);
+    
+    if (position == 0) {
+        newNode->next = *head;
+        *head = newNode;
+        return;
+    }
+    
+    struct Node* temp = *head;
+    for (int i = 0; i < position - 1; i++) {
+        if (temp == NULL) {
+            printf(""Position out of bounds\n"");
+            return;
+        }
+        temp = temp->next;
+    }
+    
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+// Function to display the linked list
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf(""%d -> "", temp->data);
+        temp = temp->next;
+    }
+    printf(""NULL\n"");
+}
+
+// Main function to test the linked list operations
+int main() {
+    struct Node* head = NULL;
+    
+    insertAtEnd(&head, 10);
+    insertAtBeginning(&head, 5);
+    insertAtEnd(&head, 15);
+    insertAtPosition(&head, 12, 2);
+    
+    printf(""Linked List: "");
+    printList(head);
+    
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to find intersection of two arrays.,"#include <stdio.h>
+
+// Function to find the intersection of two arrays
+void findIntersection(int *arr1, int size1, int *arr2, int size2) {
+    printf(""Intersection of the two arrays: "");
+    
+    for (int i = 0; i < size1; i++) {
+        for (int j = 0; j < size2; j++) {
+            if (arr1[i] == arr2[j]) {
+                printf(""%d "", arr1[i]);
+                break;  // Element found, no need to continue inner loop
+            }
+        }
+    }
+    printf(""\n"");
+}
+
+int main() {
+    // Sample arrays
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {4, 5, 6, 7, 8};
+    
+    // Determine the size of the arrays
+    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+    int size2 = sizeof(arr2) / sizeof(arr2[0]);
+    
+    // Find intersection
+    findIntersection(arr1, size1, arr2, size2);
+    
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code to print all permutations of a string.,"#include <stdio.h>
+#include <string.h>
+
+// Function to swap values at two pointers
+void swap(char *x, char *y) {
+    char temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+// Function to print all permutations of a string
+void permute(char *str, int l, int r) {
+    if (l == r) {
+        printf(""%s\n"", str);
+    } else {
+        for (int i = l; i <= r; i++) {
+            swap((str + l), (str + i));
+            permute(str, l + 1, r);
+            swap((str + l), (str + i)); // backtrack
+        }
+    }
+}
+
+int main() {
+    char str[100];
+    printf(""Enter a string: "");
+    scanf(""%s"", str);
+    int n = strlen(str);
+    printf(""All permutations of the string are:\n"");
+    permute(str, 0, n - 1);
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C code for linked list insertion.,"#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for a linked list node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf(""Memory allocation error\n"");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to insert a node at the beginning of the linked list
+void insertAtBeginning(struct Node** head_ref, int new_data) {
+    struct Node* newNode = createNode(new_data);
+    newNode->next = *head_ref;
+    *head_ref = newNode;
+}
+
+// Function to insert a node at the end of the linked list
+void insertAtEnd(struct Node** head_ref, int new_data) {
+    struct Node* newNode = createNode(new_data);
+    if (*head_ref == NULL) {
+        *head_ref = newNode;
+        return;
+    }
+    
+    struct Node* last = *head_ref;
+    while (last->next != NULL) {
+        last = last->next;
+    }
+
+    last->next = newNode;
+}
+
+// Function to insert a node after a given node
+void insertAfter(struct Node* prev_node, int new_data) {
+    if (prev_node == NULL) {
+        printf(""The given previous node cannot be NULL\n"");
+        return;
+    }
+
+    struct Node* newNode = createNode(new_data);
+    newNode->next = prev_node->next;
+    prev_node->next = newNode;
+}
+
+// Function to print the linked list
+void printList(struct Node* node) {
+    while (node != NULL) {
+        printf(""%d -> "", node->data);
+        node = node->next;
+    }
+    printf(""NULL\n"");
+}
+
+// Main function to demonstrate the linked list insertion
+int main() {
+    struct Node* head = NULL;
+
+    insertAtEnd(&head, 1);
+    insertAtBeginning(&head, 2);
+    insertAtEnd(&head, 3);
+    insertAfter(head->next, 4);
+
+    printf(""Linked list: "");
+    printList(head);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program that reverses a string.,"#include <stdio.h>
+#include <string.h>
+
+void reverseString(char* str) {
+    int length = strlen(str);
+    int start = 0;
+    int end = length - 1;
+    char temp;
+
+    while (start < end) {
+        // Swap the characters at start and end indices
+        temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+
+        // Move towards the middle
+        start++;
+        end--;
+    }
+}
+
+int main() {
+    char str[100];
+
+    printf(""Enter a string: "");
+    fgets(str, sizeof(str), stdin);
+
+    // Remove newline character if present
+    str[strcspn(str, ""\n"")] = '\0';
+
+    printf(""Original String: %s\n"", str);
+
+    reverseString(str);
+
+    printf(""Reversed String: %s\n"", str);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C code for linked list insertion.,"#include <stdio.h>
+#include <stdlib.h>
+
+// Definition of the node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to print the list
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while(temp != NULL) {
+        printf(""%d -> "", temp->data);
+        temp = temp->next;
+    }
+    printf(""NULL\n"");
+}
+
+// Insert at the beginning
+void insertAtBeginning(struct Node** head_ref, int new_data) {
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = new_data;
+    new_node->next = *head_ref;
+    *head_ref = new_node;
+}
+
+// Insert at the end
+void insertAtEnd(struct Node** head_ref, int new_data) {
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = new_data;
+    new_node->next = NULL;
+
+    if (*head_ref == NULL) {
+        *head_ref = new_node;
+        return;
+    }
+    struct Node* last = *head_ref;
+    while (last->next != NULL)
+        last = last->next;
+    last->next = new_node;
+}
+
+// Insert after a specific node
+void insertAfter(struct Node* prev_node, int new_data) {
+    if (prev_node == NULL) {
+        printf(""The given previous node cannot be NULL\n"");
+        return;
+    }
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = new_data;
+    new_node->next = prev_node->next;
+    prev_node->next = new_node;
+}
+
+// Driver code to test above functions
+int main() {
+    struct Node* head = NULL;
+
+    insertAtEnd(&head, 10);           // List: 10
+    insertAtBeginning(&head, 5);      // List: 5 -> 10
+    insertAtEnd(&head, 20);           // List: 5 -> 10 -> 20
+    insertAfter(head->next, 15);      // List: 5 -> 10 -> 15 -> 20
+
+    printf(""Linked list: "");
+    printList(head);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program for Caesar cipher encryption.,"#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+// Function to encrypt the input text using the Caesar cipher
+void encrypt(char* text, int key) {
+    int length = strlen(text);
+
+    for (int i = 0; i < length; i++) {
+        // Check if the character is an alphabetic character
+        if (isalpha(text[i])) {
+            char offset = isupper(text[i]) ? 'A' : 'a';
+            text[i] = (text[i] - offset + key) % 26 + offset;
+        }
+    }
+}
+
+int main() {
+    char text[100];
+    int key;
+
+    // Ask user to input text to be encrypted
+    printf(""Enter the text to encrypt: "");
+    fgets(text, sizeof(text), stdin);
+
+    // Remove newline character from the input text
+    text[strcspn(text, ""\n"")] = '\0';
+
+    // Ask user for the key (shift value)
+    printf(""Enter the key (shift value): "");
+    scanf(""%d"", &key);
+
+    // Encrypt the text
+    encrypt(text, key);
+
+    // Output the encrypted text
+    printf(""Encrypted text: %s\n"", text);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to find intersection of two arrays.,"#include <stdio.h>
+
+int main() {
+    int n1, n2, i, j, k = 0;
+    printf(""Enter number of elements in first array: "");
+    scanf(""%d"", &n1);
+
+    int arr1[n1];
+    printf(""Enter elements of first array:\n"");
+    for(i = 0; i < n1; i++)
+        scanf(""%d"", &arr1[i]);
+
+    printf(""Enter number of elements in second array: "");
+    scanf(""%d"", &n2);
+
+    int arr2[n2];
+    printf(""Enter elements of second array:\n"");
+    for(i = 0; i < n2; i++)
+        scanf(""%d"", &arr2[i]);
+
+    int intersection[(n1 < n2) ? n1 : n2]; // Max possible size
+
+    // Find intersection
+    for(i = 0; i < n1; i++) {
+        for(j = 0; j < n2; j++) {
+            if(arr1[i] == arr2[j]) {
+                // Check if already included
+                int found = 0;
+                for(int x = 0; x < k; x++) {
+                    if(intersection[x] == arr1[i]) {
+                        found = 1;
+                        break;
+                    }
+                }
+                if(!found){
+                    intersection[k++] = arr1[i];
+                }
+                break;
+            }
+        }
+    }
+
+    if(k == 0) {
+        printf(""No intersection.\n"");
+    } else {
+        printf(""Intersection of the two arrays: "");
+        for(i = 0; i < k; i++)
+            printf(""%d "", intersection[i]);
+        printf(""\n"");
+    }
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C program to check if a number is prime.,"#include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
+
+// Function to check if a number is prime
+bool isPrime(int number) {
+    // Handle edge cases: numbers less than 2 are not prime
+    if (number <= 1) {
+        return false;
+    }
+
+    // Only check factors up to the square root of the number
+    int sqrt_number = (int)sqrt(number);
+    for (int i = 2; i <= sqrt_number; i++) {
+        if (number % i == 0) {
+            return false; // Found a factor, not prime
+        }
+    }
+
+    return true; // No factors found, number is prime
+}
+
+int main() {
+    int number;
+
+    // Ask the user to enter a number
+    printf(""Enter a number to check if it is prime: "");
+    scanf(""%d"", &number);
+
+    // Check if the number is prime and print the result
+    if (isPrime(number)) {
+        printf(""%d is a prime number.\n"", number);
+    } else {
+        printf(""%d is not a prime number.\n"", number);
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C code for binary to decimal conversion.,"#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int binaryToDecimal(const char *binary) {
+    int decimal = 0;
+    int len = strlen(binary);
+
+    // Process each bit
+    for (int i = 0; i < len; i++) {
+        if (binary[i] != '0' && binary[i] != '1') {
+            printf(""Invalid binary number.\n"");
+            return -1;
+        }
+        // Add to decimal: digit * 2^(position from right)
+        decimal += (binary[i] - '0') * pow(2, len - i - 1);
+    }
+
+    return decimal;
+}
+
+int main() {
+    char binary[65];
+
+    printf(""Enter a binary number: "");
+    scanf(""%64s"", binary);
+
+    int decimal = binaryToDecimal(binary);
+    if (decimal != -1)
+        printf(""Decimal equivalent: %d\n"", decimal);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to sum elements of a 2D array.,"#include <stdio.h>
+
+int main() {
+    int rows, cols, i, j, sum = 0;
+
+    printf(""Enter number of rows: "");
+    scanf(""%d"", &rows);
+
+    printf(""Enter number of columns: "");
+    scanf(""%d"", &cols);
+
+    int arr[rows][cols];
+
+    // Input elements
+    printf(""Enter the elements of the 2D array:\n"");
+    for(i = 0; i < rows; ++i) {
+        for(j = 0; j < cols; ++j) {
+            printf(""Element at [%d][%d]: "", i, j);
+            scanf(""%d"", &arr[i][j]);
+        }
+    }
+
+    // Sum elements
+    for(i = 0; i < rows; ++i) {
+        for(j = 0; j < cols; ++j) {
+            sum += arr[i][j];
+        }
+    }
+
+    printf(""Sum of all elements = %d\n"", sum);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to find intersection of two arrays.,"#include <stdio.h>
+
+// Function to find the intersection of two arrays
+void findIntersection(int arr1[], int size1, int arr2[], int size2) {
+    printf(""Intersection of the two arrays is: "");
+    for(int i = 0; i < size1; i++) {
+        for(int j = 0; j < size2; j++) {
+            if(arr1[i] == arr2[j]) {
+                printf(""%d "", arr1[i]);
+                break; // Break to avoid duplicates in intersection result
+            }
+        }
+    }
+    printf(""\n"");
+}
+
+int main() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {4, 5, 6, 7, 8};
+
+    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+    int size2 = sizeof(arr2) / sizeof(arr2[0]);
+
+    findIntersection(arr1, size1, arr2, size2);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to check for leap year.,"#include <stdio.h>
+
+int main() {
+    int year;
+
+    printf(""Enter a year: "");
+    scanf(""%d"", &year);
+
+    // Leap year condition: divisible by 4 and (not divisible by 100 or divisible by 400)
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        printf(""%d is a leap year.\n"", year);
+    } else {
+        printf(""%d is not a leap year.\n"", year);
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program that sorts an array of integers.,"#include <stdio.h>
+
+void bubbleSort(int arr[], int n) {
+    int i, j, temp;
+    for(i = 0; i < n-1; i++) {
+        for(j = 0; j < n-i-1; j++) {
+            if(arr[j] > arr[j+1]) {
+                // Swap arr[j] and arr[j+1]
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+
+void printArray(int arr[], int n) {
+    int i;
+    for(i = 0; i < n; i++)
+        printf(""%d "", arr[i]);
+    printf(""\n"");
+}
+
+int main() {
+    int arr[100], n, i;
+
+    printf(""Enter number of elements: "");
+    scanf(""%d"", &n);
+
+    printf(""Enter %d integers:\n"", n);
+    for(i = 0; i < n; i++)
+        scanf(""%d"", &arr[i]);
+
+    bubbleSort(arr, n);
+
+    printf(""Sorted array:\n"");
+    printArray(arr, n);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to reverse a linked list.,"#include <stdio.h>
+#include <stdlib.h>
+
+// Definition for singly-linked list node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to push a new node at the beginning of the list
+void push(struct Node** head_ref, int new_data) {
+    // Allocate node
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+  
+    // Put in the data
+    new_node->data = new_data;
+  
+    // Make next of new node as head
+    new_node->next = (*head_ref);
+  
+    // Move the head to point to the new node
+    (*head_ref) = new_node;
+}
+
+// Function to reverse the linked list
+void reverse(struct Node** head_ref) {
+    struct Node* prev = NULL;
+    struct Node* current = *head_ref;
+    struct Node* next = NULL;
+    while (current != NULL) {
+        // Store next
+        next = current->next;
+        // Reverse current node's pointer
+        current->next = prev;
+        // Move pointers one position ahead
+        prev = current;
+        current = next;
+    }
+    *head_ref = prev;
+}
+
+// Function to print the linked list
+void printList(struct Node* node) {
+    while (node != NULL) {
+        printf(""%d "", node->data);
+        node = node->next;
+    }
+    printf(""\n"");
+}
+
+// Main function to demonstrate functionality
+int main() {
+    struct Node* head = NULL;
+  
+    // Push elements to the linked list
+    push(&head, 20);
+    push(&head, 4);
+    push(&head, 15);
+    push(&head, 85);
+  
+    printf(""Given linked list:\n"");
+    printList(head);
+    
+    reverse(&head);
+    
+    printf(""Reversed linked list:\n"");
+    printList(head);
+    
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code for a basic phonebook application.,"#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX_CONTACTS 100
+#define NAME_LENGTH 50
+#define PHONE_LENGTH 15
+
+struct Contact {
+    char name[NAME_LENGTH];
+    char phone[PHONE_LENGTH];
+};
+
+void addContact(struct Contact contacts[], int *count) {
+    if (*count >= MAX_CONTACTS) {
+        printf(""Phonebook is full!\n"");
+        return;
+    }
+    printf(""Enter name: "");
+    fflush(stdin);
+    fgets(contacts[*count].name, NAME_LENGTH, stdin);
+    contacts[*count].name[strcspn(contacts[*count].name, ""\n"")] = 0; // Remove newline
+
+    printf(""Enter phone number: "");
+    fgets(contacts[*count].phone, PHONE_LENGTH, stdin);
+    contacts[*count].phone[strcspn(contacts[*count].phone, ""\n"")] = 0; // Remove newline
+
+    (*count)++;
+    printf(""Contact added successfully!\n"");
+}
+
+void displayContacts(struct Contact contacts[], int count) {
+    if (count == 0) {
+        printf(""Phonebook is empty!\n"");
+        return;
+    }
+    printf(""\nContacts List:\n"");
+    for (int i = 0; i < count; i++) {
+        printf(""%d. %s - %s\n"", i + 1, contacts[i].name, contacts[i].phone);
+    }
+}
+
+void searchContact(struct Contact contacts[], int count) {
+    char searchName[NAME_LENGTH];
+    printf(""Enter name to search: "");
+    fflush(stdin);
+    fgets(searchName, NAME_LENGTH, stdin);
+    searchName[strcspn(searchName, ""\n"")] = 0; // Remove newline
+
+    int found = 0;
+    for (int i = 0; i < count; i++) {
+        if (strcasecmp(contacts[i].name, searchName) == 0) {
+            printf(""Contact found: %s - %s\n"", contacts[i].name, contacts[i].phone);
+            found = 1;
+            break;
+        }
+    }
+    if (!found) {
+        printf(""Contact not found.\n"");
+    }
+}
+
+int main() {
+    struct Contact contacts[MAX_CONTACTS];
+    int count = 0;
+    int choice;
+    while (1) {
+        printf(""\n--- Phonebook Menu ---\n"");
+        printf(""1. Add Contact\n"");
+        printf(""2. Display Contacts\n"");
+        printf(""3. Search Contact\n"");
+        printf(""4. Exit\n"");
+        printf(""Enter your choice: "");
+        scanf(""%d"", &choice);
+
+        switch(choice) {
+            case 1:
+                addContact(contacts, &count);
+                break;
+            case 2:
+                displayContacts(contacts, count);
+                break;
+            case 3:
+                searchContact(contacts, count);
+                break;
+            case 4:
+                printf(""Exiting program.\n"");
+                exit(0);
+            default:
+                printf(""Invalid choice! Try again.\n"");
+        }
+    }
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code for linear search.,"#include <stdio.h>
+
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key)
+            return i; // Element found at index i
+    }
+    return -1; // Element not found
+}
+
+int main() {
+    int n, key;
+    printf(""Enter the number of elements: "");
+    scanf(""%d"", &n);
+
+    int arr[n];
+
+    printf(""Enter the elements:\n"");
+    for (int i = 0; i < n; i++) {
+        scanf(""%d"", &arr[i]);
+    }
+
+    printf(""Enter the element to search: "");
+    scanf(""%d"", &key);
+
+    int result = linearSearch(arr, n, key);
+
+    if (result == -1)
+        printf(""Element not found in the array.\n"");
+    else
+        printf(""Element found at index %d.\n"", result);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C program to check for leap year.,"#include <stdio.h>
+
+int main() {
+    int year;
+
+    // Ask the user to input a year
+    printf(""Enter a year: "");
+    scanf(""%d"", &year);
+
+    // Check if the year is a leap year
+    if (year % 4 == 0) {
+        if (year % 100 == 0) {
+            if (year % 400 == 0) {
+                printf(""%d is a leap year.\n"", year);
+            } else {
+                printf(""%d is not a leap year.\n"", year);
+            }
+        } else {
+            printf(""%d is a leap year.\n"", year);
+        }
+    } else {
+        printf(""%d is not a leap year.\n"", year);
+    }
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C code for bubble sort.,"#include <stdio.h>
+
+// Function to perform bubble sort
+void bubbleSort(int arr[], int n) {
+    int i, j, temp;
+    int swapped;
+    for (i = 0; i < n-1; i++) {
+        swapped = 0;
+        for (j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                // Swap elements
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+                swapped = 1;
+            }
+        }
+        // If no two elements were swapped by inner loop, then break
+        if (swapped == 0)
+            break;
+    }
+}
+
+// Function to print an array
+void printArray(int arr[], int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        printf(""%d "", arr[i]);
+    }
+    printf(""\n"");
+}
+
+int main() {
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printf(""Unsorted array: \n"");
+    printArray(arr, n);
+
+    bubbleSort(arr, n);
+
+    printf(""Sorted array: \n"");
+    printArray(arr, n);
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to find intersection of two arrays.,"#include <stdio.h>
+
+// Function to check if value exists in an array
+int exists(int arr[], int size, int value) {
+    for(int i = 0; i < size; i++)
+        if(arr[i] == value)
+            return 1;
+    return 0;
+}
+
+int main() {
+    int n1, n2;
+    int i, j, k = 0;
+
+    // Input size of arrays
+    printf(""Enter size of first array: "");
+    scanf(""%d"", &n1);
+    int arr1[n1];
+
+    printf(""Enter elements of first array: "");
+    for(i = 0; i < n1; i++)
+        scanf(""%d"", &arr1[i]);
+
+    printf(""Enter size of second array: "");
+    scanf(""%d"", &n2);
+    int arr2[n2];
+
+    printf(""Enter elements of second array: "");
+    for(i = 0; i < n2; i++)
+        scanf(""%d"", &arr2[i]);
+
+    // Find intersection
+    int intersection[n1 < n2 ? n1 : n2]; // Maximum possible size
+
+    for(i = 0; i < n1; i++) {
+        // Check if arr1[i] is in arr2 and not already in intersection[]
+        if(exists(arr2, n2, arr1[i]) && !exists(intersection, k, arr1[i])) {
+            intersection[k] = arr1[i];
+            k++;
+        }
+    }
+
+    // Output
+    printf(""Intersection of the two arrays: "");
+    if(k == 0)
+        printf(""No common elements.\n"");
+    else {
+        for(i = 0; i < k; i++)
+            printf(""%d "", intersection[i]);
+        printf(""\n"");
+    }
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C code for linear search.,"#include <stdio.h>
+
+int linearSearch(int arr[], int size, int key) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == key) {
+            return i; // Element found, return index
+        }
+    }
+    return -1; // Element not found
+}
+
+int main() {
+    int arr[100], n, key, i, result;
+
+    printf(""Enter number of elements: "");
+    scanf(""%d"", &n);
+
+    printf(""Enter %d elements: "", n);
+    for(i = 0; i < n; i++)
+        scanf(""%d"", &arr[i]);
+
+    printf(""Enter element to search: "");
+    scanf(""%d"", &key);
+
+    result = linearSearch(arr, n, key);
+
+    if(result == -1)
+        printf(""Element not found in array.\n"");
+    else
+        printf(""Element found at index %d.\n"", result);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Write a C program to check for palindrome.,"#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+// Function to remove non-alphanumeric characters and convert to lower case
+void preprocessString(char *str, char *processed) {
+    int j = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (isalnum(str[i])) { // Check if the character is alphanumeric
+            processed[j] = tolower(str[i]); // Convert to lowercase
+            j++;
+        }
+    }
+    processed[j] = '\0'; // Null-terminate the processed string
+}
+
+// Function to check if the string is a palindrome
+int isPalindrome(char *str) {
+    int len = strlen(str);
+    for (int i = 0; i < len / 2; i++) {
+        if (str[i] != str[len - i - 1]) {
+            return 0; // Not a palindrome
+        }
+    }
+    return 1; // Is a palindrome
+}
+
+int main() {
+    char input[1000], processed[1000];
+
+    printf(""Enter a string: "");
+    fgets(input, sizeof(input), stdin);
+    input[strcspn(input, ""\n"")] = '\0'; // Remove trailing newline character
+
+    preprocessString(input, processed);
+
+    if (isPalindrome(processed)) {
+        printf(""The entered string is a palindrome.\n"");
+    } else {
+        printf(""The entered string is not a palindrome.\n"");
+    }
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Create a C code for linked list insertion.,"#include <stdio.h>
+#include <stdlib.h>
+
+// Define a struct for a node in the linked list
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node with given data
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf(""Memory allocation failed\n"");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to insert a new node at the beginning of the linked list
+void insertAtHead(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    newNode->next = *head;
+    *head = newNode;
+}
+
+// Function to insert a new node at the end of the linked list
+void insertAtTail(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    struct Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+// Function to print the linked list
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf(""%d -> "", temp->data);
+        temp = temp->next;
+    }
+    printf(""NULL\n"");
+}
+
+// Main function to demonstrate the linked list
+int main() {
+    struct Node* head = NULL;  // Initially, the linked list is empty
+
+    insertAtHead(&head, 10);  // Insert 10 at the head
+    insertAtHead(&head, 20);  // Insert 20 at the head
+    insertAtTail(&head, 30);  // Insert 30 at the tail
+    insertAtTail(&head, 40);  // Insert 40 at the tail
+
+    printf(""Linked list: "");
+    printList(head);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to reverse the order of words in a sentence.,"#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_LEN 1000
+#define MAX_WORDS 200
+
+int main() {
+    char sentence[MAX_LEN];
+    char *words[MAX_WORDS];
+    int word_count = 0;
+    
+    printf(""Enter a sentence:\n"");
+    if (fgets(sentence, sizeof(sentence), stdin) == NULL) {
+        printf(""Input error.\n"");
+        return 1;
+    }
+
+    // Remove trailing newline
+    size_t len = strlen(sentence);
+    if (len > 0 && sentence[len-1] == '\n') sentence[len-1] = '\0';
+
+    // Split the sentence into words
+    char *token = strtok(sentence, "" "");
+    while (token != NULL && word_count < MAX_WORDS) {
+        words[word_count++] = token;
+        token = strtok(NULL, "" "");
+    }
+
+    // Print words in reverse order
+    printf(""Reversed sentence:\n"");
+    for (int i = word_count - 1; i >= 0; i--) {
+        printf(""%s"", words[i]);
+        if (i > 0) printf("" "");
+    }
+    printf(""\n"");
+
+    return 0;
+}"
+gpt-4.1,gpt-4o,Generate a C program that finds the largest element in an array.,"#include <stdio.h>
+
+int main() {
+    int n, i, largest;
+
+    printf(""Enter number of elements in the array: "");
+    scanf(""%d"", &n);
+
+    int arr[n];  // Declare an array of size n
+
+    printf(""Enter %d elements:\n"", n);
+    for (i = 0; i < n; i++) {
+        scanf(""%d"", &arr[i]);
+    }
+
+    largest = arr[0]; // Assume the first element is the largest
+
+    for (i = 1; i < n; i++) {
+        if (arr[i] > largest) {
+            largest = arr[i];
+        }
+    }
+
+    printf(""The largest element in the array is: %d\n"", largest);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to find the minimum and maximum in an array.,"#include <stdio.h>
+
+int main() {
+    int n, i;
+    int arr[100];
+    int min, max;
+
+    printf(""Enter number of elements (up to 100): "");
+    scanf(""%d"", &n);
+
+    printf(""Enter %d elements:\n"", n);
+    for (i = 0; i < n; i++) {
+        scanf(""%d"", &arr[i]);
+    }
+
+    // Initialize min and max
+    min = arr[0];
+    max = arr[0];
+
+    // Find min and max
+    for (i = 1; i < n; i++) {
+        if (arr[i] < min)
+            min = arr[i];
+        if (arr[i] > max)
+            max = arr[i];
+    }
+
+    printf(""Minimum element: %d\n"", min);
+    printf(""Maximum element: %d\n"", max);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Write a C program to count vowels and consonants in a string.,"#include <stdio.h>
+#include <ctype.h>  // For tolower()
+
+int main() {
+    char str[100];
+    int i = 0, vowels = 0, consonants = 0;
+
+    printf(""Enter a string: "");
+    fgets(str, sizeof(str), stdin);
+
+    while (str[i] != '\0' && str[i] != '\n') {
+        if (isalpha(str[i])) { // Check if the character is an alphabet
+            char ch = tolower(str[i]);
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+                vowels++;
+            else
+                consonants++;
+        }
+        i++;
+    }
+
+    printf(""Vowels: %d\n"", vowels);
+    printf(""Consonants: %d\n"", consonants);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C code for binary to decimal conversion.,"#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int main() {
+    char binary[65];
+    int decimal = 0;
+    int length, i;
+
+    printf(""Enter a binary number: "");
+    scanf(""%s"", binary);
+
+    length = strlen(binary);
+    for(i = 0; i < length; i++) {
+        if(binary[i] == '1') {
+            decimal += pow(2, length-1-i);
+        }
+    }
+
+    printf(""Decimal equivalent: %d\n"", decimal);
+
+    return 0;
+}"
+gpt-4o,gpt-4o,Generate a C program for a simple calculator.,"#include <stdio.h>
+
+// Function declarations
+void add(double a, double b);
+void subtract(double a, double b);
+void multiply(double a, double b);
+void divide(double a, double b);
+
+int main() {
+    char operator;
+    double num1, num2;
+
+    printf(""Simple Calculator\n"");
+    printf(""Enter an operator (+, -, *, /): "");
+    scanf("" %c"", &operator);
+
+    printf(""Enter two operands: "");
+    scanf(""%lf %lf"", &num1, &num2);
+
+    switch (operator) {
+        case '+':
+            add(num1, num2);
+            break;
+        case '-':
+            subtract(num1, num2);
+            break;
+        case '*':
+            multiply(num1, num2);
+            break;
+        case '/':
+            divide(num1, num2);
+            break;
+        default:
+            printf(""Error! Invalid operator\n"");
+            break;
+    }
+
+    return 0;
+}
+
+// Function definitions
+void add(double a, double b) {
+    printf(""%.2f + %.2f = %.2f\n"", a, b, a + b);
+}
+
+void subtract(double a, double b) {
+    printf(""%.2f - %.2f = %.2f\n"", a, b, a - b);
+}
+
+void multiply(double a, double b) {
+    printf(""%.2f * %.2f = %.2f\n"", a, b, a * b);
+}
+
+void divide(double a, double b) {
+    if (b != 0) {
+        printf(""%.2f / %.2f = %.2f\n"", a, b, a / b);
+    } else {
+        printf(""Error! Division by zero is not allowed.\n"");
+    }
+}"
+gpt-4.1,gpt-4.1,Write a C program for binary search.,"#include <stdio.h>
+
+// Function to implement binary search
+int binarySearch(int arr[], int n, int key) {
+    int low = 0, high = n - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;  // Avoids overflow
+
+        if (arr[mid] == key)
+            return mid;   // Key found, return index
+        else if (arr[mid] < key)
+            low = mid + 1;  // Search in right half
+        else
+            high = mid - 1; // Search in left half
+    }
+    return -1;  // Key not found
+}
+
+int main() {
+    int n, key, i, result;
+    printf(""Enter number of elements in the array: "");
+    scanf(""%d"", &n);
+
+    int arr[n];
+    printf(""Enter %d sorted elements:\n"", n);
+    for(i = 0; i < n; i++) {
+        scanf(""%d"", &arr[i]);
+    }
+
+    printf(""Enter the element to search: "");
+    scanf(""%d"", &key);
+
+    result = binarySearch(arr, n, key);
+
+    if(result == -1)
+        printf(""Element not found in the array.\n"");
+    else
+        printf(""Element found at index %d.\n"", result);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Create a C program to find the minimum and maximum in an array.,"#include <stdio.h>
+
+int main() {
+    int n, i;
+    int arr[100];        // Adjust size as needed
+    int min, max;
+
+    printf(""Enter number of elements in array: "");
+    scanf(""%d"", &n);
+
+    printf(""Enter %d integers:\n"", n);
+    for(i = 0; i < n; i++) {
+        scanf(""%d"", &arr[i]);
+    }
+
+    min = max = arr[0]; // Assume first element is both min and max
+
+    for(i = 1; i < n; i++) {
+        if(arr[i] < min)
+            min = arr[i];
+        if(arr[i] > max)
+            max = arr[i];
+    }
+
+    printf(""Minimum value = %d\n"", min);
+    printf(""Maximum value = %d\n"", max);
+
+    return 0;
+}"
+gpt-4.1,gpt-4.1,Generate a C program that reads a file and counts lines.,"#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    FILE *file;
+    int count = 0;
+    char ch;
+
+    if (argc < 2) {
+        printf(""Usage: %s <filename>\n"", argv[0]);
+        return 1;
+    }
+
+    file = fopen(argv[1], ""r"");
+    if (file == NULL) {
+        perror(""Error opening file"");
+        return 1;
+    }
+
+    while ((ch = fgetc(file)) != EOF) {
+        if (ch == '\n') {
+            count++;
+        }
+    }
+
+    fclose(file);
+
+    printf(""Number of lines: %d\n"", count);
+
+    return 0;
+}"
